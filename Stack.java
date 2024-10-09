@@ -69,6 +69,6 @@ public class Stack
     
     public String toString()
     {
-        System.out.println(Arrays.toString(arr));
+        return Arrays.toString(arr);
     }
 }
