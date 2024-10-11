@@ -1,3 +1,4 @@
+//34567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 import java.util.Arrays;
 /**
  * Write a description of class MyQueue here.
@@ -9,9 +10,8 @@ public class MyQueue
 {
     private int[] arr;
     private int frontIndex;
-    private int endIndex;
+    private int endIndex; 
     private int queueSize;
-    //top of index
     
     public MyQueue (int size) {
         arr = new int[size];
@@ -39,6 +39,18 @@ public class MyQueue
         }
     }
 
+    public boolean isFull()
+    {
+        if (queueSize == arr.length)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     public int size() 
     {
         return queueSize;
@@ -46,20 +58,26 @@ public class MyQueue
     
     public void enqueue(int element) 
     {
-       //assumes that element is not full.
-       //assume that endIndex is in place going into this method call 
-       //
        arr[endIndex] = element;
-       endIndex = (endIndex + 1) % arr.length;
+       endIndex = (endIndex + 1) % arr.length; 
+       //bumps index and wraps it back to zero if index is at the end
+       
        queueSize++;
     }
     
     public int dequeue()
     {
-        int rValue = arr[frontIndex];
-        frontIndex++;
+        int temp = arr[frontIndex]; //holds the dequeue value 
+        frontIndex = (frontIndex + 1) % arr.length; 
+        //bumps index and wraps it back to zero if index is at the end
+        
         queueSize--;
-        return rValue;
+        return temp;
+    }
+    
+    public int front()
+    {
+        return arr[frontIndex];
     }
     
      public String toString()
