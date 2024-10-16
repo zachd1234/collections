@@ -1,5 +1,8 @@
 //34567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 import java.util.Arrays;
+import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
+
 /**
  * Write a description of class Stack here.
  *
@@ -22,54 +25,63 @@ public class Stack
         topIndex = 0;
     }
     
-     public boolean isEmpty()
-    {
-        if (topIndex == 0)
-        {
+     public boolean isEmpty() {
+        if (topIndex == 0) {
             return true;
         }
-        else
-        {
+        else {
             return false; 
         }
     }
     
-    public boolean isFull()
-    {
-        if (topIndex >= arr.length)
-        {
+    public boolean isFull() {
+        if (topIndex >= arr.length) {
             return true;
         }
-        else
-        {
+        else {
             return false; 
         }
     }
-    
-    public void push(int newVal)
-    {
+
+    /**
+     * @throws IllegalStateException if stack is full 
+     */
+    public void push(int newVal) {
+        if(isFull()) {
+           throw new IllegalStateException("Stack is full. Can't push.");  
+       }
         arr[topIndex] = newVal;
         topIndex++;
     }
     
-    public int pop()
-    {
+    
+    /**
+     * @throws EmptyStackException if stack is Empty 
+     */
+    public int pop() {
+        if(isEmpty()) {
+            throw new EmptyStackException(); 
+        }
+        
         topIndex--;
         return arr[topIndex];
     }
     
-    public int top()
-    {
+     /**
+     * @throws EmptyStackException if stack is Empty 
+     */
+    public int top() {
+        if (isEmpty()){
+            throw new EmptyStackException();
+        }
         return arr[topIndex-1];
     }
     
-    public int size()
-    {
+    public int size() {
         return topIndex;
     }
     
-    public String toString()
-    {
+    public String toString() {
         return Arrays.toString(arr);
     }
 }
