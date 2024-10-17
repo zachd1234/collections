@@ -101,4 +101,24 @@ public class Test
        System.out.println("Front of Stack " + tester.front());       
     }
     
+    public static void testLinkedList()
+    {
+        MyLinkedList test = new MyLinkedList();
+        System.out.println("Empty: " + test.isEmpty());
+        test.addHead(5);
+        test.addHead(10);
+        test.addHead(24);
+        test.addHead(213);
+        System.out.println("List " + test);
+        System.out.println("Head removed: " + test.removeHead());
+        System.out.println("List " + test);
+        System.out.println("Empty: " + test.isEmpty());
+        System.out.println("Current Head: " + test.getHead());
+        System.out.println("adding tail: 142");
+        test.newTail(142);
+        System.out.println("List " + test); 
+        System.out.println(test.size());
+
+        
+    }
 }

@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 
 /**
  * Write a description of class MyLinkedList here.
@@ -9,11 +10,79 @@ public class MyLinkedList
 {
     private Node head;
     private Node tail;
+    private int size; 
     
-    public void addHead(int data)
-    {
     
+    public void addHead(int data) {
+        size++;
+        Node newHead = new Node(data, head); 
+        head = newHead; 
     }
+    
+    public void newTail(int data) {
+        
+        //confused about tail. what if the tail is the first element added.
+        //do i then also have to set the head to tail as well? 
+        
+
+        size++;
+        Node newTail = new Node(data, null);
+        
+        tail = newTail; 
+        //tail.setNode(newTail);
+        
+        //comes at end
+        tail = newTail;
+        
+        //create new tail
+        //attach current tail to new tail 
+        //update tail to new tail 
+    }
+    
+    public int removeHead() {
+        if (isEmpty())
+        {
+            throw new NoSuchElementException(); 
+        }
+        size--;
+        int firstItem = head.getData();
+        head = head.getNext();
+        return firstItem;
+    }
+    
+    public int getHead() {
+        if (isEmpty())
+        {
+            throw new NoSuchElementException(); 
+        }
+        return head.getData();
+    }
+    
+    public boolean isEmpty() {
+        if (size <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public int size() {
+        return size; 
+    }
+    
+    public String toString() 
+    {
+        String print = "";
+        Node temp = head;
+        
+        for (int i = 0; i < size; i++) { 
+            print = print + " " + temp.getData(); 
+            temp = temp.getNext(); 
+        }
+        return print; 
+    }
+    
+    
     
     public class Node
     {
@@ -37,7 +106,7 @@ public class MyLinkedList
             this.data = data;
         }
         
-        public void SetNode (Node next){
+        public void setNode (Node next){
             this.next = next; 
         }
     }
