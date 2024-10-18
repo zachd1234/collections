@@ -6,56 +6,58 @@ import java.util.NoSuchElementException;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MyLinkedList
+public class MyLinkedList<E>
 {
-    private Node head;
-    private Node tail;
+    private Node<E> head;
+    private Node<E> tail;
     private int size; 
     
     
-    public void addHead(int data) {
+    public void addHead(E element) {
+        Node<E> newNode = new Node<E>(element);
+        newNode.setNext(head);
+        head = newNode;
+        if (isEmpty()) { 
+            tail = head;
+        }
         size++;
-        Node newHead = new Node(data, head); 
-        head = newHead; 
     }
     
-    public void newTail(int data) {
+    public void newTail(E element) {
         
         //confused about tail. what if the tail is the first element added.
         //do i then also have to set the head to tail as well? 
         
-
-        size++;
-        Node newTail = new Node(data, null);
+        if (isEmpty()) {
+            addHead(element);
+        } else {
+            Node<E> newNode = new Node<E>(element);
+            tail.setNext(newNode);
+            tail = newNode;  
+            size++;
+        }
         
-        tail = newTail; 
-        //tail.setNode(newTail);
         
-        //comes at end
-        tail = newTail;
-        
-        //create new tail
-        //attach current tail to new tail 
-        //update tail to new tail 
     }
     
-    public int removeHead() {
+    public E removeHead() {
         if (isEmpty())
         {
             throw new NoSuchElementException(); 
         }
-        size--;
-        int firstItem = head.getData();
+        
+        E firstItem = head.getElement();
         head = head.getNext();
+        size--;
         return firstItem;
     }
     
-    public int getHead() {
+    public E getHead() {
         if (isEmpty())
         {
             throw new NoSuchElementException(); 
         }
-        return head.getData();
+        return head.getElement();
     }
     
     public boolean isEmpty() {
@@ -76,7 +78,7 @@ public class MyLinkedList
         Node temp = head;
         
         for (int i = 0; i < size; i++) { 
-            print = print + " " + temp.getData(); 
+            print = print + " " + temp.getElement(); 
             temp = temp.getNext(); 
         }
         return print; 
@@ -84,29 +86,28 @@ public class MyLinkedList
     
     
     
-    public class Node
-    {
-        private int data;
-        private Node next; 
+    private class Node<E> {
+        private E element;
+        private Node<E> next; 
         
-        public Node(int data, Node next) {
-            this.data = data;
-            this.next = next; 
+        private Node(E element) {
+            this.element = element;
+            this.next = null; 
         }
         
-        public int getData() {
-            return data;
+        private E getElement() {
+            return element;
         }
         
-        public Node getNext() {
+        private Node<E> getNext() {
             return next;
         }
         
-        public void setData(int data) {
-            this.data = data;
+        private void setElement(E element) {
+            this.element = element;
         }
         
-        public void setNode (Node next){
+        private void setNext (Node<E> next){
             this.next = next; 
         }
     }

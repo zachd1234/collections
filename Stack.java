@@ -10,18 +10,18 @@ import java.util.NoSuchElementException;
  * @version (a version number or a date)
  */
 
-public class Stack
+public class Stack<E>
 {
-    private int[] arr;
+    private E[] arr;
     private int topIndex; //the next available index to push an element to. 1 + top of stack. 
     
     public Stack (int size) {
-        arr = new int[size];
+        arr = (E[]) new Object[size];
         topIndex = 0;
     }
     
     public Stack() {
-        arr = new int[10000];
+        arr = (E[]) new Object[10000];
         topIndex = 0;
     }
     
@@ -46,7 +46,7 @@ public class Stack
     /**
      * @throws IllegalStateException if stack is full 
      */
-    public void push(int newVal) {
+    public void push(E newVal) {
         if(isFull()) {
            throw new IllegalStateException("Stack is full. Can't push.");  
        }
@@ -58,7 +58,7 @@ public class Stack
     /**
      * @throws EmptyStackException if stack is Empty 
      */
-    public int pop() {
+    public E pop() {
         if(isEmpty()) {
             throw new EmptyStackException(); 
         }
@@ -70,7 +70,7 @@ public class Stack
      /**
      * @throws EmptyStackException if stack is Empty 
      */
-    public int top() {
+    public E top() {
         if (isEmpty()){
             throw new EmptyStackException();
         }

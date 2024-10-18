@@ -8,22 +8,22 @@ import java.util.NoSuchElementException;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MyQueue
+public class MyQueue<E>
 {
-    private int[] arr;
+    private E[] arr;
     private int frontIndex;
     private int endIndex; 
     private int queueSize;
     
     public MyQueue (int size) {
-        arr = new int[size];
+        arr = (E[]) new Object[size];
         frontIndex = 0;
         endIndex = 0;
         queueSize = 0; 
     }
     
     public MyQueue() {
-        arr = new int[100];
+        arr = (E[]) new Object[100];
         frontIndex = 0; 
         endIndex = 0;
         queueSize = 0;
@@ -54,7 +54,7 @@ public class MyQueue
      /**
      * @throws IllegalStateException if Queue is Full 
      */
-    public void enqueue(int element) {
+    public void enqueue(E element) {
        if(isFull()) {
            throw new IllegalStateException();  
        }
@@ -68,12 +68,12 @@ public class MyQueue
     /**
      * @throws NoSuchElementException if Queue is Empty 
      */
-    public int dequeue()
+    public E dequeue()
     {
         if (isEmpty()){
             throw new NoSuchElementException(); 
         }
-        int temp = arr[frontIndex]; //holds the dequeue value 
+        E temp = arr[frontIndex]; //holds the dequeue value 
         frontIndex = (frontIndex + 1) % arr.length; 
         //bumps index and wraps it back to zero if index is at the end
         
@@ -84,7 +84,7 @@ public class MyQueue
     /**
      * @throws NoSuchElementException if Queue is Empty 
      */
-    public int front() {
+    public E front() {
         if (isEmpty()){
             throw new NoSuchElementException(); 
         }

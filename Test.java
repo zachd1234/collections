@@ -11,7 +11,7 @@ public class Test
 {
     public static void testStack()
     {
-        Stack tester = new Stack(7);
+        Stack<Integer> tester = new Stack<Integer>(7);
         System.out.println("Is Empty " + tester.isEmpty());
         System.out.println("adding 40, 86, 21, 24, 46, 11, 92");
         try {
@@ -52,7 +52,7 @@ public class Test
     
     public static void testQueue()
     {
-       MyQueue tester = new MyQueue(7);
+       MyQueue<Integer> tester = new MyQueue<Integer>(7);
        System.out.println("Is Empty " + tester.isEmpty());
        System.out.println("adding 40, 86, 21, 24, 46, 11, 92");
        
@@ -103,7 +103,7 @@ public class Test
     
     public static void testLinkedList()
     {
-        MyLinkedList test = new MyLinkedList();
+        MyLinkedList<Integer> test = new MyLinkedList<Integer>();
         System.out.println("Empty: " + test.isEmpty());
         test.addHead(5);
         test.addHead(10);
@@ -117,7 +117,7 @@ public class Test
         System.out.println("adding tail: 142");
         test.newTail(142);
         System.out.println("List " + test); 
-        System.out.println(test.size());
+        System.out.println("List Size: " + test.size());
 
         
     }
