@@ -10,17 +10,17 @@ import java.util.NoSuchElementException;
  * @version (a version number or a date)
  */
 
-public class Stack<E>
+public class MyStack<E>
 {
     private E[] arr;
     private int topIndex; //the next available index to push an element to. 1 + top of stack. 
     
-    public Stack (int size) {
+    public MyStack (int size) {
         arr = (E[]) new Object[size];
         topIndex = 0;
     }
     
-    public Stack() {
+    public MyStack() {
         arr = (E[]) new Object[10000];
         topIndex = 0;
     }
