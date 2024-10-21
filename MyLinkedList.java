@@ -23,7 +23,7 @@ public class MyLinkedList<E>
         size++;
     }
     
-    public void newTail(E element) {
+    public void addTail(E element) {
         
         //confused about tail. what if the tail is the first element added.
         //do i then also have to set the head to tail as well? 
