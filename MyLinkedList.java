@@ -4,7 +4,8 @@ import java.util.NoSuchElementException;
  * Write a description of class MyLinkedList here.
  *
  * @author (your name)
- * @version (a version number or a date)
+ * @version (a version number or a date)* 
+
  */
 public class MyLinkedList<E>
 {

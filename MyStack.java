@@ -7,21 +7,21 @@ import java.util.NoSuchElementException;
  * Write a description of class Stack here.
  *
  * @author (your name)
- * @version (a version number or a date)
- */
-
+ * @version (a version number or a date)-
+  
+  */ 
 public class MyStack<E>
 {
     private E[] arr;
     private int topIndex; //the next available index to push an element to. 1 + top of stack. 
     
-    public MyStack (int size) {
-        arr = (E[]) new Object[size];
+    public MyStack (int maxSize) {
+        arr = (E[]) new Object[maxSize];
         topIndex = 0;
     }
     
     public MyStack() {
-        arr = (E[]) new Object[10000];
+        arr = (E[]) new Object[100];
         topIndex = 0;
     }
     
@@ -46,11 +46,11 @@ public class MyStack<E>
     /**
      * @throws IllegalStateException if stack is full 
      */
-    public void push(E newVal) {
+    public void push(E element) {
         if(isFull()) {
            throw new IllegalStateException("Stack is full. Can't push.");  
        }
-        arr[topIndex] = newVal;
+        arr[topIndex] = element;
         topIndex++;
     }
     
