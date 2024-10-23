@@ -11,7 +11,7 @@ public class Test
 {
     public static void testStack()
     {
-        Stack<Integer> tester = new Stack<Integer>(7);
+        MyStack<Integer> tester = new MyStack<Integer>(7);
         System.out.println("Is Empty " + tester.isEmpty());
         System.out.println("adding 40, 86, 21, 24, 46, 11, 92");
         try {
@@ -115,7 +115,7 @@ public class Test
         System.out.println("Empty: " + test.isEmpty());
         System.out.println("Current Head: " + test.getHead());
         System.out.println("adding tail: 142");
-        test.newTail(142);
+        test.addTail(142);
         System.out.println("List " + test); 
         System.out.println("List Size: " + test.size());
 

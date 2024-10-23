@@ -4,7 +4,8 @@ import java.util.NoSuchElementException;
  * Write a description of class MyLinkedList here.
  *
  * @author (your name)
- * @version (a version number or a date)
+ * @version (a version number or a date)* 
+
  */
 public class MyLinkedList<E>
 {
@@ -23,7 +24,7 @@ public class MyLinkedList<E>
         size++;
     }
     
-    public void newTail(E element) {
+    public void addTail(E element) {
         
         //confused about tail. what if the tail is the first element added.
         //do i then also have to set the head to tail as well? 

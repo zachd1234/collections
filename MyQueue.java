@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
  * Write a description of class MyQueue here.
  *
  * @author (your name)
- * @version (a version number or a date)
+ * @version (a version number or a date
  */
 public class MyQueue<E>
 {
@@ -15,8 +15,8 @@ public class MyQueue<E>
     private int endIndex; 
     private int queueSize;
     
-    public MyQueue (int size) {
-        arr = (E[]) new Object[size];
+    public MyQueue (int maxSize) {
+        arr = (E[]) new Object[maxSize];
         frontIndex = 0;
         endIndex = 0;
         queueSize = 0; 
