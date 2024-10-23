@@ -27,6 +27,11 @@ public class MyStackLL<E>
        }
        return stack.removeHead();
    }
+
+   public boolean isEmpty()
+   {
+     return stack.isEmpty();
+   }
    
    public E top() {
        if(stack.isEmpty()) {

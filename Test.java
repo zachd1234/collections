@@ -139,6 +139,7 @@ public class Test
        // } catch (EmptyStackException e) {
          //   System.out.println("Caught exception top. Can't top when stack is empty");
        // }
+        System.out.println("Is Empty: " + tester.isEmpty());
         tester.push(86);
         tester.push(21);
         tester.push(24);
@@ -156,7 +157,7 @@ public class Test
     
         System.out.println(tester);
         System.out.println("Top of Stack " + tester.top());
-    
+        System.out.println("is empty: " + tester.isEmpty());
     }
     
      public static void testQueueLL()

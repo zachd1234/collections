@@ -47,7 +47,7 @@ public class MyLinkedList<E>
             throw new NoSuchElementException(); 
         } else if (size == 1) { 
             E firstItem = head.getElement();
-            head = null; 
+            head = null;
             tail = null;
             size--;
             return firstItem;
