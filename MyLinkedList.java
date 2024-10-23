@@ -44,12 +44,18 @@ public class MyLinkedList<E>
         if (isEmpty())
         {
             throw new NoSuchElementException(); 
-        }
-        
+        } else if (size == 1) { 
+            E firstItem = head.getElement();
+            head = null; 
+            tail = null;
+            size--;
+            return firstItem;
+        } else {
         E firstItem = head.getElement();
         head = head.getNext();
         size--;
         return firstItem;
+        }
     }
     
     public E getHead() {
