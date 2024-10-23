@@ -16,7 +16,7 @@ public class MyQueueLL<E>
     }
     
     public void enqueue(E element){
-        queue.newTail(element);
+        queue.addTail(element);
     }
         
     /**
