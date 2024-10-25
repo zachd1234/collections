@@ -23,7 +23,7 @@ public class MyStackLL<E>
    public E pop() {
        //do i also need to throw an exeption here if empty. bc linked list also does it
        if(stack.isEmpty()) {
-            throw new NoSuchElementException(); 
+            throw new EmptyStackException(); 
        }
        return stack.removeHead();
    }
@@ -35,7 +35,7 @@ public class MyStackLL<E>
    
    public E top() {
        if(stack.isEmpty()) {
-            throw new NoSuchElementException(); 
+            throw new EmptyStackException(); 
        }
        return stack.getHead();
    }

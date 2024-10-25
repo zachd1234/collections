@@ -16,7 +16,7 @@ public class MyStack<E>
     private int topIndex; //the next available index to push an element to. 1 + top of stack. 
     
     public MyStack (int maxSize) {
-        if (maxSize <= 0) {
+        if (maxSize < 0) {
             throw new IllegalArgumentException("Stack needs to be positive.");
         }
         arr = (E[]) new Object[maxSize];
