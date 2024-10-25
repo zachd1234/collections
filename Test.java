@@ -210,4 +210,32 @@ public class Test
        System.out.println("Front of Queue " + tester.front());       
     }
     
+        
+    public static void testRobustLinkedList()
+    {
+        RobustLinkedList<Integer> test = new RobustLinkedList<Integer>();
+        System.out.println("Empty: " + test.isEmpty());
+        test.addHead(5);
+        test.addHead(10);
+        test.addHead(24);
+        test.addHead(213);
+        System.out.println("List " + test);
+        System.out.println("Head removed: " + test.removeHead());
+        System.out.println("List " + test);
+        System.out.println("Empty: " + test.isEmpty());
+        System.out.println("Current Head: " + test.getHead());
+        System.out.println("adding tail: 142");
+        test.addTail(142);
+        System.out.println("List " + test); 
+        System.out.println("List Size: " + test.size());
+        
+        System.out.println("add method testing");
+        test.add(124);
+        System.out.println(test);
+        test.add(2, 21);
+        System.out.println(test);
+
+        
+    }
+    
 }
