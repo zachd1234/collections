@@ -28,16 +28,16 @@ public class MyLinkedList<E>
         
         //confused about tail. what if the tail is the first element added.
         //do i then also have to set the head to tail as well? 
+        Node<E> newNode = new Node<E>(element);
         
         if (isEmpty()) {
-            addHead(element);
+            head = newNode;
+            tail = newNode;
         } else {
-            Node<E> newNode = new Node<E>(element);
             tail.setNext(newNode);
             tail = newNode;  
-            size++;
         }
-        
+        size++;
         
     }
     
