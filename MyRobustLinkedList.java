@@ -5,7 +5,9 @@ import java.util.NoSuchElementException;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class RobustLinkedList<E>
+public class MyRobustLinkedList<E>
+
+//just double check method names then we can call it a day 
 {
     private Node<E> head;
     private Node<E> tail;
@@ -26,17 +28,27 @@ public class RobustLinkedList<E>
             addTail(element);
         } else {
             Node<E> newNode = new Node<E>(element);
-            Node temp = head;
+            Node<E> temp = head;
             //implementation in the middle 
             for (int i = 0; i < index; i++) {
                  temp = temp.getNext();
             }
             newNode.setNext(temp);
             newNode.setPrev(temp.getPrev());
-            
             temp.getPrev().setNext(newNode);
             temp.setPrev(newNode); 
+            size++;
         }
+    }
+    
+    public E get(int index) {
+        Node<E> temp = head;
+        //implementation in the middle 
+        for (int i = 0; i < index; i++) {
+            temp = temp.getNext();
+        }
+        
+        return temp.getElement();
     }
     
     public void addHead(E element) {
@@ -50,6 +62,45 @@ public class RobustLinkedList<E>
             head = newNode;
         }
         size++;
+    }
+    
+    public void set(int index, E element) { 
+        Node<E> temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.getNext();
+        }
+        temp.setElement(element);
+    }
+    
+    public E remove(int index) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException();
+        } else if (index == 0) {
+            return removeHead();
+        } else if (index == size() - 1) { 
+            Node<E> temp = head;
+            for (int i = 0; i < index; i++) {
+                temp = temp.getNext();
+            }
+            E removalVal = temp.getElement();
+            temp.getPrev().setNext(null);
+            temp = null;
+            size--;
+            return removalVal;
+        } else {
+            //remove middle  
+            Node<E> temp = head;
+            for (int i = 0; i < index; i++) {
+                temp = temp.getNext();
+            }
+            E removalVal = temp.getElement();
+            
+            temp.getNext().setPrev(temp.getPrev()); 
+            temp.getPrev().setNext(temp.getNext());
+            size--;
+            temp = null; 
+            return removalVal;
+        }
     }
     
     public void addTail(E element) {
@@ -81,11 +132,11 @@ public class RobustLinkedList<E>
             size--;
             return firstItem;
         } else {
-        E firstItem = head.getElement();
-        head = head.getNext();
-        head.setPrev(null);
-        size--;
-        return firstItem;
+            E firstItem = head.getElement();
+            head = head.getNext();
+            head.setPrev(null);
+            size--;
+            return firstItem;
         }
     }
     
@@ -115,13 +166,12 @@ public class RobustLinkedList<E>
         Node temp = head;
         
         for (int i = 0; i < size; i++) { 
-            print = print + " " + temp.getElement(); 
+            //improve this toString a little so there is no comma on the end 
+            print = print + temp.getElement() + ", "; 
             temp = temp.getNext(); 
         }
         return print; 
     }
-    
-    
     
     private class Node<E> {
         private E element;

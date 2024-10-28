@@ -213,7 +213,7 @@ public class Test
         
     public static void testRobustLinkedList()
     {
-        RobustLinkedList<Integer> test = new RobustLinkedList<Integer>();
+        MyRobustLinkedList<Integer> test = new MyRobustLinkedList<Integer>();
         System.out.println("Empty: " + test.isEmpty());
         test.addHead(5);
         test.addHead(10);
@@ -234,7 +234,40 @@ public class Test
         System.out.println(test);
         test.add(2, 21);
         System.out.println(test);
-
+        test.add(5, 176);
+        System.out.println(test);
+        try {
+            test.add(-1, 176);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Exeption caught when trying to add and index == -1");
+        }
+        try {
+            test.add(21412, 176);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Exeption caught when trying to add and index ==  12412");
+        }
+        System.out.println(test);
+        System.out.println("Getting index 3:" +test.get(3));
+        System.out.println("Getting index 0:" +test.get(0));
+        System.out.println("Getting index 6:" +test.get(6));
+        
+        System.out.println(test);
+        test.set(3, 100);
+        System.out.println("setting index 3:" + test);
+        test.set(0, 100);
+        System.out.println("setting index 0:" +test);
+        test.set(6, 100);
+        System.out.println("setting index 6" + test);
+        
+        System.out.println("\n testing remove");
+        
+        System.out.println(test);
+        System.out.println("removing tail: " + test.remove(6));
+        System.out.println(test);
+        System.out.println("removing index 3: " + test.remove(3));
+        System.out.println(test);
+        
+        //now test the add methods again then we can call it a day. 
         
     }
     
