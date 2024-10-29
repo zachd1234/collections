@@ -270,5 +270,18 @@ public class Test
         //now test the add methods again then we can call it a day. 
         
     }
-    
+    public static void testApplications() {
+        System.out.println("Reverse testing: ");
+        MyQueueLL<Integer> tester = new MyQueueLL<Integer>();
+        tester.enqueue(40);
+        tester.enqueue(86);
+        tester.enqueue(21);
+        tester.enqueue(24);
+        tester.enqueue(46);
+        tester.enqueue(11);
+        tester.enqueue(92);
+        System.out.println("Current Queue: " + tester);
+        Applications.reverse(tester);
+        System.out.println("After Reverse Method: " + tester);   
+    }
 }
