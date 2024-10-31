@@ -2,10 +2,10 @@ import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 /**
- * Write a description of class Test here.
+ * Tests all the methods 
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Zach Derhake
+ * @version 10/30/24
  */
 public class Test
 {
