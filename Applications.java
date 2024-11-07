@@ -50,4 +50,8 @@ public class Applications
             return false;
         }
     }
+    
+    public static double evalPostfix(String expression) {
+        
+    }
 }
