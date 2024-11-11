@@ -173,6 +173,8 @@ public class MyRobustLinkedList<E>
         return print; 
     }
     
+    public E indexOf(MyRobustLinkedList<E> ll) {}
+    
     private class Node<E> {
         private E element;
         private Node<E> next; 

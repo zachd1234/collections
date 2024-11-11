@@ -64,11 +64,11 @@ public class Applications
                 } else if ("*+-/%".indexOf(arr[i]) == 1) {
                      newValue = value1 + value2;
                 } else if ("*+-/%".indexOf(arr[i]) == 2) {
-                     newValue = value1 - value2;
+                     newValue = value1 - value2; //make sure that this is right
                 } else if ("*+-/%".indexOf(arr[i]) == 3) {
-                     newValue = value1 / value2;
+                     newValue = value1 / value2; //make sure that this is right
                 } else { 
-                     newValue = value1 % value2;
+                     newValue = value1 % value2; //make sure order is right
                 }
                 temp.push(newValue);
             } else {
