@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 /**
  * Write a description of class Applications here.
  *
@@ -52,6 +52,30 @@ public class Applications
     }
     
     public static double evalPostfix(String expression) {
-        
+        String[] arr = expression.split(" ");
+        MyStackLL<Double> temp = new MyStackLL<Double>();
+        for (int i = 0; i < arr.length; i++) {
+            if ("*+-/%".indexOf(arr[i]) != -1) { 
+                double value1 = temp.pop();
+                double value2 = temp.pop();
+                double newValue;
+                if ("*+-/%".indexOf(arr[i]) == 0) {
+                     newValue = value1 * value2;
+                } else if ("*+-/%".indexOf(arr[i]) == 1) {
+                     newValue = value1 + value2;
+                } else if ("*+-/%".indexOf(arr[i]) == 2) {
+                     newValue = value1 - value2;
+                } else if ("*+-/%".indexOf(arr[i]) == 3) {
+                     newValue = value1 / value2;
+                } else { 
+                     newValue = value1 % value2;
+                }
+                temp.push(newValue);
+            } else {
+                temp.push(Double.parseDouble(arr[i]));
+            }
+            
+        }
+        return temp.top(); 
     }
 }
