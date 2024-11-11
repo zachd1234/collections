@@ -282,6 +282,11 @@ public class Test
         tester.enqueue(92);
         System.out.println("Current Queue: " + tester);
         Applications.reverse(tester);
-        System.out.println("After Reverse Method: " + tester);   
+        System.out.println("After Reverse Method: " + tester);
+        
+        System.out.println("\nPostFix Testing");
+        System.out.println(Applications.evalPostfix("1 2 +"));
+        System.out.println(Applications.evalPostfix("12 2 * 11 +"));
+
     }
 }
