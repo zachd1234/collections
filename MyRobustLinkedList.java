@@ -28,27 +28,42 @@ public class MyRobustLinkedList<E>
             addTail(element);
         } else {
             Node<E> newNode = new Node<E>(element);
-            Node<E> temp = head;
             //implementation in the middle 
-            for (int i = 0; i < index; i++) {
-                 temp = temp.getNext();
+            Node<E> cursor; 
+            
+            if ((size/2) > index) {
+                cursor = head;
+                 for (int i = 0; i < index; i++) {
+                 cursor = cursor.getNext();
+                }
+            } else {
+                cursor = tail; 
+                for (int i = size-1; i > index; i--) {//could be wrong
+                    cursor = cursor.getPrev();
+                }
             }
-            newNode.setNext(temp);
-            newNode.setPrev(temp.getPrev());
-            temp.getPrev().setNext(newNode);
-            temp.setPrev(newNode); 
+            newNode.setNext(cursor);
+            newNode.setPrev(cursor.getPrev());
+            cursor.getPrev().setNext(newNode);
+            cursor.setPrev(newNode); 
             size++;
         }
     }
     
     public E get(int index) {
-        Node<E> temp = head;
-        //implementation in the middle 
-        for (int i = 0; i < index; i++) {
-            temp = temp.getNext();
-        }
-        
-        return temp.getElement();
+        Node<E> cursor; 
+            if ((size/2) > index) {
+                cursor = head;
+                 for (int i = 0; i < index; i++) {
+                 cursor = cursor.getNext();
+                }
+            } else {
+                cursor = tail; 
+                for (int i = size-1; i > index; i--) {//could be wrong
+                    cursor = cursor.getPrev();
+                }
+            }
+        return cursor.getElement();
     }
     
     public void addHead(E element) {
@@ -65,11 +80,19 @@ public class MyRobustLinkedList<E>
     }
     
     public void set(int index, E element) { 
-        Node<E> temp = head;
-        for (int i = 0; i < index; i++) {
-            temp = temp.getNext();
-        }
-        temp.setElement(element);
+       Node<E> cursor; 
+            if ((size/2) > index) {
+                cursor = head;
+                 for (int i = 0; i < index; i++) {
+                 cursor = cursor.getNext();
+                }
+            } else {
+                cursor = tail; 
+                for (int i = size-1; i > index; i--) {//could be wrong
+                    cursor = cursor.getPrev();
+                }
+            }
+        cursor.setElement(element);
     }
     
     public E remove(int index) {
@@ -78,15 +101,24 @@ public class MyRobustLinkedList<E>
         } else if (index == 0) {
             return removeHead();
         } else if (index == size() - 1) { 
-            Node<E> temp = head;
-            for (int i = 0; i < index; i++) {
-                temp = temp.getNext();
+            //efficent traverse  
+            Node<E> cursor; 
+            if ((size/2) > index) {
+                cursor = head;
+                 for (int i = 0; i < index; i++) {
+                 cursor = cursor.getNext();
+                }
+            } else {
+                cursor = tail; 
+                for (int i = size-1; i > index; i--) {
+                    cursor = cursor.getPrev();
+                }
             }
-            E removalVal = temp.getElement();
-            temp.getPrev().setNext(null);
-            temp = null;
+            E temp = cursor.getElement();
+            cursor.getPrev().setNext(null);
+            cursor = null;
             size--;
-            return removalVal;
+            return temp;
         } else {
             //remove middle  
             Node<E> temp = head;
@@ -160,6 +192,33 @@ public class MyRobustLinkedList<E>
         return size; 
     }
     
+    
+    public int indexOf(E element) {
+        //could theoretically throw exeption when LL is empty
+        Node cursor = head; 
+        for (int i = 0; i < size; i++) {     
+            if(cursor.getElement().equals(element)) {
+                return i;
+            }
+            cursor = cursor.getNext();
+        }
+        return -1; 
+    }
+    
+    public int lastIndexOf(E element) {
+        Node cursor = head; 
+        int foundIndex = -1; 
+        for (int i = 0; i < size; i++) {     
+            if(cursor.getElement().equals(element)) {
+                foundIndex = i;
+            }
+            cursor = cursor.getNext();
+        }
+        return foundIndex; 
+    }
+    
+    
+    
     public String toString() 
     {
         String print = "";
@@ -172,8 +231,6 @@ public class MyRobustLinkedList<E>
         }
         return print; 
     }
-    
-    public E indexOf(MyRobustLinkedList<E> ll) {}
     
     private class Node<E> {
         private E element;

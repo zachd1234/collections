@@ -226,9 +226,10 @@ public class Test
         System.out.println("Current Head: " + test.getHead());
         System.out.println("adding tail: 142");
         test.addTail(142);
+        test.addTail(100);
         System.out.println("List " + test); 
+        System.out.println("Index of. 24 passed as parameter. Return value:" + test.lastIndexOf(24));
         System.out.println("List Size: " + test.size());
-        
         System.out.println("add method testing");
         test.add(124);
         System.out.println(test);
@@ -262,7 +263,7 @@ public class Test
         System.out.println("\n testing remove");
         
         System.out.println(test);
-        System.out.println("removing tail: " + test.remove(6));
+        System.out.println("removing index 6: " + test.remove(6));
         System.out.println(test);
         System.out.println("removing index 3: " + test.remove(3));
         System.out.println(test);
