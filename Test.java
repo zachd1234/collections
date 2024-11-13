@@ -1,3 +1,4 @@
+//34567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
@@ -268,8 +269,17 @@ public class Test
         System.out.println("removing index 3: " + test.remove(3));
         System.out.println(test);
         
-        //now test the add methods again then we can call it a day. 
-        
+        System.out.println("new phase of testing");
+        System.out.println(CharacterDatabase.buildListDatabase());
+        System.out.println("Index of Character Testing:");
+        System.out.println("Fred Index of " + CharacterDatabase.buildListDatabase()
+                .indexOf(new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed")));
+        System.out.println("Fred Index of " + CharacterDatabase.buildListDatabase()
+                .indexOf(new ShowCharacter("Phoebe", "Buffay", "", "")));
+        System.out.println("Poopy Poop" + CharacterDatabase.buildListDatabase()
+                .indexOf(new ShowCharacter("Poopy", "Poop", "", "")));        
+         System.out.println("Nullers" + CharacterDatabase.buildListDatabase()
+                .indexOf(null));        
     }
     public static void testApplications() {
         System.out.println("Reverse testing: ");
