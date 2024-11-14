@@ -279,7 +279,9 @@ public class Test
         System.out.println("Poopy Poop" + CharacterDatabase.buildListDatabase()
                 .indexOf(new ShowCharacter("Poopy", "Poop", "", "")));        
          System.out.println("Nullers" + CharacterDatabase.buildListDatabase()
-                .indexOf(null));        
+                .indexOf(null));
+                
+        //test my remove method. 
     }
     public static void testApplications() {
         System.out.println("Reverse testing: ");
