@@ -282,6 +282,16 @@ public class Test
                 .indexOf(null));
                 
         //test my remove method. 
+        System.out.println("Testing remove method");
+        MyRobustLinkedList<Integer> test2 = new MyRobustLinkedList<Integer>();
+        System.out.println(test2.removey(5));
+        test2.add(2);
+        test2.add(3);
+        System.out.println("5" + test2.removey(5));
+        System.out.println("3" + test2.removey(3));
+        System.out.println(test2);
+        System.out.println("remove 5" + test2.removey(5));
+
     }
     public static void testApplications() {
         System.out.println("Reverse testing: ");

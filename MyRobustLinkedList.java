@@ -225,27 +225,19 @@ public class MyRobustLinkedList<E>
      * @returns .
      * @throws .
      */
-    public boolean remove(E element) {
-        if(isEmpty()){
-            return false; 
-        } else { 
-            if(head.getElement().equals(element)){
-                removeHead();
-                return true;
-            } else {
-                Node cursor = head; //redundant double check but OK
-                for (int i = 0; i < size; i++) {
-                    if (cursor.getElement().equals(element)) {
-                        cursor.getNext().setPrev(cursor.getPrev()); 
-                        cursor.getPrev().setNext(cursor.getNext());
-                        size--;
-                        cursor = null;
-                        return true;
-                    }
-                    cursor = cursor.getNext();
-                }
-                return false; 
-            }
+    //ask Mr Murphy about the conflict between these two remove methods 
+    public boolean removey(E element) {
+        
+        // index of (E element)
+        //if index Of = -1 , false
+        //else remove and return true 
+        
+        int valIndex = indexOf(element);
+        if (valIndex == -1) {
+            return false;
+        } else {
+            remove(valIndex);
+            return true; 
         }
     }
     
