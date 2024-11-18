@@ -311,6 +311,7 @@ public class Test
         System.out.println("\nPostFix Testing");
         System.out.println(Applications.evalPostfix("1 2 +"));
         System.out.println(Applications.evalPostfix("12 2 * 11 +"));
+        System.out.println("hi");
 
     }
 }
