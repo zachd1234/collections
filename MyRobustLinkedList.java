@@ -218,9 +218,42 @@ public class MyRobustLinkedList<E>
     }
     
     
+    /**
+     * Removes first occurrence of matching element.
+     * 
+     * @param .
+     * @returns .
+     * @throws .
+     */
+    //ask Mr Murphy about the conflict between these two remove methods 
+    public boolean remove(E element) {
+        
+        // index of (E element)
+        //if index Of = -1 , false
+        //else remove and return true 
+        
+        int valIndex = indexOf(element);
+        if (valIndex == -1) {
+            return false;
+        } else {
+            remove(valIndex);
+            return true; 
+        }
+    }
+
+    //assumes already sorted
+    /**
+     * Inserts element into sorted list.
+     * 
+     * @
+     * @
+     * @
+     */
+    public void insertSorted(E element) {
+        
+    }
     
-    public String toString() 
-    {
+    public String toString()  {
         String print = "";
         Node temp = head;
         

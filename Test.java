@@ -279,8 +279,21 @@ public class Test
         System.out.println("Poopy Poop" + CharacterDatabase.buildListDatabase()
                 .indexOf(new ShowCharacter("Poopy", "Poop", "", "")));        
          System.out.println("Nullers" + CharacterDatabase.buildListDatabase()
-                .indexOf(null));        
+                .indexOf(null));
+                
+        //test my remove method. 
+        System.out.println("Testing remove method");
+        MyRobustLinkedList<Integer> test2 = new MyRobustLinkedList<Integer>();
+        System.out.println(test2.remove((Integer)5));
+        test2.add(2);
+        test2.add(3);
+        System.out.println("5" + test2.remove((Integer)5));
+        System.out.println("3" + test2.remove((Integer)3));
+        System.out.println(test2);
+        System.out.println("remove 5" + test2.remove((Integer)5));
+
     }
+    
     public static void testApplications() {
         System.out.println("Reverse testing: ");
         MyQueueLL<Integer> tester = new MyQueueLL<Integer>();
