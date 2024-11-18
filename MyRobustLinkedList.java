@@ -226,7 +226,11 @@ public class MyRobustLinkedList<E>
         
         for (int i = 0; i < size; i++) { 
             //improve this toString a little so there is no comma on the end 
-            print = print + temp.getElement() + ", "; 
+            if (temp == tail) {
+                print = print + temp.getElement();
+            } else {
+                print = print + temp.getElement() + ", "; 
+            }
             temp = temp.getNext(); 
         }
         return print; 
