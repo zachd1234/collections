@@ -226,7 +226,7 @@ public class MyRobustLinkedList<E>
      * @throws .
      */
     //ask Mr Murphy about the conflict between these two remove methods 
-    public boolean removey(E element) {
+    public boolean remove(E element) {
         
         // index of (E element)
         //if index Of = -1 , false
@@ -240,15 +240,30 @@ public class MyRobustLinkedList<E>
             return true; 
         }
     }
+
+    //assumes already sorted
+    /**
+     * Inserts element into sorted list.
+     * 
+     * @
+     * @
+     * @
+     */
+    public void insertSorted(E element) {
+        
+    }
     
-    public String toString() 
-    {
+    public String toString()  {
         String print = "";
         Node temp = head;
         
         for (int i = 0; i < size; i++) { 
             //improve this toString a little so there is no comma on the end 
-            print = print + temp.getElement() + ", "; 
+            if (temp == tail) {
+                print = print + temp.getElement();
+            } else {
+                print = print + temp.getElement() + ", "; 
+            }
             temp = temp.getNext(); 
         }
         return print; 
