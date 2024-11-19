@@ -284,15 +284,16 @@ public class Test
         //test my remove method. 
         System.out.println("Testing remove method");
         MyRobustLinkedList<Integer> test2 = new MyRobustLinkedList<Integer>();
-        System.out.println(test2.removey(5));
+        System.out.println(test2.remove((Integer)5));
         test2.add(2);
         test2.add(3);
-        System.out.println("5" + test2.removey(5));
-        System.out.println("3" + test2.removey(3));
+        System.out.println("5" + test2.remove((Integer)5));
+        System.out.println("3" + test2.remove((Integer)3));
         System.out.println(test2);
-        System.out.println("remove 5" + test2.removey(5));
+        System.out.println("remove 5" + test2.remove((Integer)5));
 
     }
+    
     public static void testApplications() {
         System.out.println("Reverse testing: ");
         MyQueueLL<Integer> tester = new MyQueueLL<Integer>();
@@ -310,6 +311,7 @@ public class Test
         System.out.println("\nPostFix Testing");
         System.out.println(Applications.evalPostfix("1 2 +"));
         System.out.println(Applications.evalPostfix("12 2 * 11 +"));
+        System.out.println("hi");
 
     }
 }
