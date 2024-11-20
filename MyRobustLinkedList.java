@@ -16,8 +16,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     
     public void add(int index, E element) {
 
-        if (index < 0 || index > size())
-        {
+        if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         } else if (index == 0) {
             addHead(element);
@@ -138,9 +137,6 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     }
     
     public void addTail(E element) {
-        
-        //confused about tail. what if the tail is the first element added.
-        //do i then also have to set the head to tail as well? 
         Node<E> newNode = new Node<E>(element);
         
         if (isEmpty()) {
@@ -156,8 +152,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     }
     
     public E removeHead() {
-        if (isEmpty())
-        {
+        if (isEmpty()) {
             throw new NoSuchElementException(); 
         } else if (size == 1) { 
             E firstItem = head.getElement();
