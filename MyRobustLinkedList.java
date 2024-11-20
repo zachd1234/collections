@@ -191,10 +191,10 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
         Node cursor = head; 
         for (int i = 0; i < size; i++) {  
             if (element != null) {
-                 if(cursor.getElement().equals(element)) {
+                 if(cursor.getElement() != null && cursor.getElement().equals(element)) {
                     return i;
                 }
-            } else if (cursor == null) {
+            } else if (cursor.getElement() == null) {
                 return i;
             }
             cursor = cursor.getNext();
@@ -211,7 +211,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
                     foundIndex = i;
                 }
             }
-            else if (cursor == null) {
+            else if (cursor.getElement() == null) {
                 foundIndex = i;
             }
             cursor = cursor.getNext();
