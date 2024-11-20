@@ -6,8 +6,7 @@
  * @author Mr. Murphy
  * @version November 2024
  */
-public class ShowCharacter
-{
+public class ShowCharacter implements Comparable<ShowCharacter>  {
     private String firstName;
     private String lastName;
     private String showTitle;
@@ -42,6 +41,27 @@ public class ShowCharacter
         }
     }
     
+    /**
+     * Returns a value <0 if this is less than other; returns zero if this is equal to other; 
+     * returns a value >0 if this is greater than other comparing last name then first anem
+     * 
+     * @param ShowCharacter Object
+     * @return Returns a value <0 if this is less than other; returns zero if this is equal to other; 
+     * returns a value >0 if this is greater than other
+     * @throws 
+     */
+    public int compareTo(ShowCharacter other) {
+        //compare last name if tie. compare first name 
+        if(other == null) {
+            throw new NullPointerException();
+        } else {
+             if(this.lastName.compareTo(other.lastName) == 0) {
+                return this.firstName.compareTo(other.firstName);
+            } else { 
+                return this.lastName.compareTo(other.lastName);
+            }
+        }  
+    }
     /**
      * Returns a string representing a ShowCharacter.
      * 

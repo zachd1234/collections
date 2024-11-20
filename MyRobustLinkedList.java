@@ -5,10 +5,7 @@ import java.util.NoSuchElementException;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MyRobustLinkedList<E>
-
-//just double check method names then we can call it a day 
-{
+public class MyRobustLinkedList<E extends Comparable<E>> {
     private Node<E> head;
     private Node<E> tail;
     private int size; 
@@ -173,19 +170,14 @@ public class MyRobustLinkedList<E>
     }
     
     public E getHead() {
-        if (isEmpty())
-        {
+        if (isEmpty()) {
             throw new NoSuchElementException(); 
         }
         return head.getElement();
     }
     
     public boolean isEmpty() {
-        if (size <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size <= 0;
     }
     
     public int size() {
@@ -241,16 +233,42 @@ public class MyRobustLinkedList<E>
         }
     }
 
-    //assumes already sorted
     /**
      * Inserts element into sorted list.
      * 
-     * @
-     * @
-     * @
+     * @ param E, a generic element 
+     * @ return 
      */
     public void insertSorted(E element) {
+        if (element == null) {
+            throw new IllegalArgumentException();
+        }
+        Node<E> cursor = head;
+         if (isEmpty()) {
+            addHead(element);
+            return;
+        } else if (cursor.getElement().compareTo(element) > 0) {
+            addHead(element);
+            return;
+        }
         
+         for (int i = 0; i < size; i++) {
+             if (cursor.getElement().compareTo(element) > 0) {
+                Node<E> newNode = new Node<E>(element);
+                newNode.setNext(cursor);
+                newNode.setPrev(cursor.getPrev());
+                cursor.getPrev().setNext(newNode);
+                cursor.setPrev(newNode); 
+                size++;
+                return;
+             }
+             
+             if(cursor == tail) {
+                 addTail(element);
+                 return;
+             }
+             cursor = cursor.getNext();
+         }
     }
     
     public String toString()  {

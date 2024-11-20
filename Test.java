@@ -270,9 +270,10 @@ public class Test
         System.out.println(test);
         
         System.out.println("new phase of testing");
-        System.out.println(CharacterDatabase.buildListDatabase());
+        MyRobustLinkedList<ShowCharacter> list = CharacterDatabase.buildListDatabase(); 
+        System.out.println(list);
         System.out.println("Index of Character Testing:");
-        System.out.println("Fred Index of " + CharacterDatabase.buildListDatabase()
+        System.out.println("Fred Index of " + list
                 .indexOf(new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed")));
         System.out.println("Fred Index of " + CharacterDatabase.buildListDatabase()
                 .indexOf(new ShowCharacter("Phoebe", "Buffay", "", "")));
@@ -291,8 +292,13 @@ public class Test
         System.out.println("3" + test2.remove((Integer)3));
         System.out.println(test2);
         System.out.println("remove 5" + test2.remove((Integer)5));
-
+        System.out.println("insertion sorted List Testing");
+        list.insertSorted(new ShowCharacter("Walter", "White", "", ""));
+        list.insertSorted(new ShowCharacter("A", "A", "", ""));
+        list.insertSorted(new ShowCharacter("hi", "hilly", "", ""));
+        System.out.println(list);
     }
+
     
     public static void testApplications() {
         System.out.println("Reverse testing: ");
@@ -311,7 +317,6 @@ public class Test
         System.out.println("\nPostFix Testing");
         System.out.println(Applications.evalPostfix("1 2 +"));
         System.out.println(Applications.evalPostfix("12 2 * 11 +"));
-        System.out.println("hi");
 
     }
 }
