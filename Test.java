@@ -268,6 +268,8 @@ public class Test
         System.out.println(test);
         System.out.println("removing index 3: " + test.remove(3));
         System.out.println(test);
+        System.out.println("removing tail " + test.remove(5));
+        System.out.println(test);
         
         System.out.println("new phase of testing");
         MyRobustLinkedList<ShowCharacter> list = CharacterDatabase.buildListDatabase(); 

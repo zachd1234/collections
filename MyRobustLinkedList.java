@@ -49,7 +49,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     
     public E get(int index) {
         Node<E> cursor;
-        if (index < 0 || index > size()) {
+        if (index < 0 || index >= size()) {
              throw new IndexOutOfBoundsException();  
         } else if ((size/2) > index) {
             cursor = head;
@@ -79,6 +79,9 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     }
     
     public void set(int index, E element) { 
+       if (index < 0 || index >= size()) {
+             throw new IndexOutOfBoundsException();  
+       }
        Node<E> cursor; 
             if ((size/2) > index) {
                 cursor = head;
@@ -95,7 +98,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     }
     
     public E remove(int index) {
-        if (index < 0 || index > size()) {
+        if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         } else if (index == 0) {
             return removeHead();
