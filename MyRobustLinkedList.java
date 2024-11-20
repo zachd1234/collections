@@ -16,12 +16,12 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     
     public void add(int index, E element) {
 
-        if (index < 0 || index >= size())
+        if (index < 0 || index > size())
         {
             throw new IndexOutOfBoundsException();
         } else if (index == 0) {
             addHead(element);
-        } else if(index == size()-1) {
+        } else if(index == size()) {
             addTail(element);
         } else {
             Node<E> newNode = new Node<E>(element);
@@ -48,20 +48,22 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     }
     
     public E get(int index) {
-        Node<E> cursor; 
-            if ((size/2) > index) {
-                cursor = head;
-                 for (int i = 0; i < index; i++) {
-                 cursor = cursor.getNext();
-                }
-            } else {
-                cursor = tail; 
-                for (int i = size-1; i > index; i--) {//could be wrong
-                    cursor = cursor.getPrev();
-                }
+        Node<E> cursor;
+        if (index < 0 || index > size()) {
+             throw new IndexOutOfBoundsException();  
+        } else if ((size/2) > index) {
+            cursor = head;
+            for (int i = 0; i < index; i++) {
+                cursor = cursor.getNext();
             }
+        } else {
+            cursor = tail; 
+            for (int i = size-1; i > index; i--) {//could be wrong
+                cursor = cursor.getPrev();
+            }
+        }
         return cursor.getElement();
-    }
+    }   
     
     public void addHead(E element) {
         Node<E> newNode = new Node<E>(element);
@@ -93,7 +95,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     }
     
     public E remove(int index) {
-        if (index < 0 || index >= size()) {
+        if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         } else if (index == 0) {
             return removeHead();
@@ -187,9 +189,14 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     
     public int indexOf(E element) {
         //could theoretically throw exeption when LL is empty
+      
         Node cursor = head; 
-        for (int i = 0; i < size; i++) {     
-            if(cursor.getElement().equals(element)) {
+        for (int i = 0; i < size; i++) {  
+            if (element != null) {
+                 if(cursor.getElement().equals(element)) {
+                    return i;
+                }
+            } else if (cursor == null) {
                 return i;
             }
             cursor = cursor.getNext();
@@ -200,8 +207,13 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     public int lastIndexOf(E element) {
         Node cursor = head; 
         int foundIndex = -1; 
-        for (int i = 0; i < size; i++) {     
-            if(cursor.getElement().equals(element)) {
+        for (int i = 0; i < size; i++) { 
+            if (element != null) {
+                if(cursor.getElement().equals(element)) {
+                    foundIndex = i;
+                }
+            }
+            else if (cursor == null) {
                 foundIndex = i;
             }
             cursor = cursor.getNext();
