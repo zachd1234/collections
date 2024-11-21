@@ -102,12 +102,22 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
         } else if (index == 0) {
             return removeHead();
         } else if (index == size() - 1) { 
-            //efficent traverse  
+            //remove tail
+            Node<E> temp = tail;
+            E removalVal = temp.getElement();
+            temp.getPrev().setNext(null);
+            tail = temp.getPrev();
+            temp = null;
+            size--;
+            return removalVal;
+        } else {
+            //remove middle  
+            
             Node<E> cursor; 
             if ((size/2) > index) {
                 cursor = head;
                  for (int i = 0; i < index; i++) {
-                 cursor = cursor.getNext();
+                    cursor = cursor.getNext();
                 }
             } else {
                 cursor = tail; 
@@ -115,23 +125,12 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
                     cursor = cursor.getPrev();
                 }
             }
-            E temp = cursor.getElement();
-            cursor.getPrev().setNext(null);
-            cursor = null;
-            size--;
-            return temp;
-        } else {
-            //remove middle  
-            Node<E> temp = head;
-            for (int i = 0; i < index; i++) {
-                temp = temp.getNext();
-            }
-            E removalVal = temp.getElement();
+            E removalVal = cursor.getElement();
             
-            temp.getNext().setPrev(temp.getPrev()); 
-            temp.getPrev().setNext(temp.getNext());
+            cursor.getNext().setPrev(cursor.getPrev()); 
+            cursor.getPrev().setNext(cursor.getNext());
             size--;
-            temp = null; 
+            cursor = null; 
             return removalVal;
         }
     }
@@ -187,7 +186,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     
     public int indexOf(E element) {
         //could theoretically throw exeption when LL is empty
-      
+        //does not work when null
         Node cursor = head; 
         for (int i = 0; i < size; i++) {  
             if (element != null) {
@@ -207,7 +206,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
         int foundIndex = -1; 
         for (int i = 0; i < size; i++) { 
             if (element != null) {
-                if(cursor.getElement().equals(element)) {
+                if(cursor.getElement() != null && cursor.getElement().equals(element)) {
                     foundIndex = i;
                 }
             }

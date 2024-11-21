@@ -299,6 +299,13 @@ public class Test
         list.insertSorted(new ShowCharacter("A", "A", "", ""));
         list.insertSorted(new ShowCharacter("hi", "hilly", "", ""));
         System.out.println(list);
+        System.out.println("last minute testing");
+        System.out.println("remove");
+        System.out.println(test);
+        System.out.println("Index of Testing");
+        System.out.println(list.indexOf(null));
+        System.out.println("Adding null in list");
+        list.insertSorted(null);
     }
 
     
