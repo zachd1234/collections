@@ -320,7 +320,7 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
      */
     public void insertSorted(E element) {
         if (element == null) {
-            throw new IllegalArgumentException();
+            addHead(element);
         }
         Node<E> cursor = head;
          if (isEmpty()) {
