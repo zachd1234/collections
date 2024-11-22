@@ -17,7 +17,11 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     /**
      * Initializes an empty RobustLinkedList with head and tail set to null and size set to zero 
      */
-    public MyRobustLinkedList() {} 
+    public MyRobustLinkedList() {
+        head = null;
+        tail = null;
+        size = 0;
+    } 
     
     /**
      * Adds generic element to end of linked list (tail)
@@ -199,7 +203,6 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
             tail = newNode;  
         }
         size++;
-        
     }
     
      /**
@@ -321,32 +324,33 @@ public class MyRobustLinkedList<E extends Comparable<E>> {
     public void insertSorted(E element) {
         if (element == null) {
             addHead(element);
+            return; 
         }
         Node<E> cursor = head;
          if (isEmpty()) {
             addHead(element);
             return;
-        } else if (cursor.getElement().compareTo(element) > 0) {
+        } else if (cursor.getElement() != null && cursor.getElement().compareTo(element) > 0) {
             addHead(element);
             return;
         }
         
-         for (int i = 0; i < size; i++) {
-             if (cursor.getElement().compareTo(element) > 0) {
-                Node<E> newNode = new Node<E>(element);
-                newNode.setNext(cursor);
-                newNode.setPrev(cursor.getPrev());
-                cursor.getPrev().setNext(newNode);
-                cursor.setPrev(newNode); 
-                size++;
-                return;
+        for (int i = 0; i < size; i++) {
+            if (cursor.getElement() != null && cursor.getElement().compareTo(element) > 0) {
+               Node<E> newNode = new Node<E>(element);
+               newNode.setNext(cursor);
+               newNode.setPrev(cursor.getPrev());
+               cursor.getPrev().setNext(newNode);
+               cursor.setPrev(newNode); 
+               size++;
+               return;
              }
              
-             if(cursor == tail) {
-                 addTail(element);
-                 return;
-             }
-             cursor = cursor.getNext();
+            if(cursor == tail) {
+                addTail(element);
+                return;
+            }
+            cursor = cursor.getNext();
          }
     }
     
