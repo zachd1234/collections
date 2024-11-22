@@ -23,7 +23,7 @@ public class Applications
             queue.enqueue(temp.pop());
         }
     }
-    //untested 
+
     public static boolean checkSyntax(String code) {
         MyStackLL<String> temp = new MyStackLL<String>();
         int i = 0;
@@ -32,24 +32,20 @@ public class Applications
                 temp.push(code.substring(i,i+1));
             } else if (")}]>".indexOf(code.substring(i, i+1)) != -1) {
                 //if temp.top is empty it will throw an exeption. when really it should return false; 
-                if (!temp.isEmpty()) { 
-                    if (")}]>".indexOf(code.substring(i, i+1)) == (")}]>".indexOf(temp.top()))) {
-                        temp.pop();
-                    } else {
+                if (temp.isEmpty()) { 
+                    return false;
+                }
+                
+                String top = temp.pop(); 
+                
+                if (")}]>".indexOf(code.substring(i, i+1)) != ("({[<".indexOf(top))) {
                         return false;
-                    }
-                } else {
-                    return false; 
                 }
             }
             i++;
         }
-        if (temp.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+        return temp.isEmpty();
+    }   
     
     public static double evalPostfix(String expression) {
         String[] arr = expression.split(" ");

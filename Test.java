@@ -327,6 +327,10 @@ public class Test
         Applications.reverse(tester);
         System.out.println("After Reverse Method: " + tester);
         
+        System.out.println("Testing Syntax Use Cases");
+        System.out.println("Empty " + Applications.checkSyntax(""));
+        System.out.println("()" + Applications.checkSyntax("()"));
+        System.out.println("(()" + Applications.checkSyntax("(()"));
         System.out.println("\nPostFix Testing");
         System.out.println(Applications.evalPostfix("1 2 +"));
         System.out.println(Applications.evalPostfix("12 2 * 11 +"));
