@@ -52,8 +52,8 @@ public class Applications
         MyStackLL<Double> temp = new MyStackLL<Double>();
         for (int i = 0; i < arr.length; i++) {
             if ("*+-/%".indexOf(arr[i]) != -1) { 
-                double value1 = temp.pop();
                 double value2 = temp.pop();
+                double value1 = temp.pop();
                 double newValue;
                 if ("*+-/%".indexOf(arr[i]) == 0) {
                      newValue = value1 * value2;
