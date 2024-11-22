@@ -238,6 +238,8 @@ public class Test
         System.out.println(test);
         test.add(5, 176);
         System.out.println(test);
+        test.add(7, 22);
+        System.out.println(test);
         try {
             test.add(-1, 176);
         } catch (IndexOutOfBoundsException e) {
@@ -305,7 +307,9 @@ public class Test
         System.out.println("Index of Testing");
         System.out.println(list.indexOf(null));
         System.out.println("Adding null in list");
-        list.insertSorted(null);
+        list.add(null);
+        System.out.println(list);
+        System.out.println(list.indexOf(null));
     }
 
     
