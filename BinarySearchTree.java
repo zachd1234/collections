@@ -26,7 +26,12 @@ public class BinarySearchTree<E extends Comparable<E>> {
      * @throws NullPointerException if element is null
      */
     public boolean insert(E element) {
-        
+        if (element == null) {
+            throw new NullPointerException();
+        } else {
+            //call the Node Class -- root, element
+            root.insert(element); 
+        }
     }
     
     /**
@@ -57,6 +62,11 @@ public class BinarySearchTree<E extends Comparable<E>> {
             this.element = element;
             this.left = null; 
             this.right = null; 
+        }
+        
+        private boolean insert(E element) {
+            //search 
+            //
         }
         
          private E getElement() {
