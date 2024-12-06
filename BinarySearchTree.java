@@ -1,12 +1,14 @@
-
 /**
  * A Binary Search Tree implementation with generic elements.
  *
  * @author Zach Derhake.
  * @version 12/4/24.
  */
+
+import java.util.NoSuchElementException;
+
 public class BinarySearchTree<E extends Comparable<E>> {
-    
+
     private int size; 
     private Node<E> root;
 
@@ -60,6 +62,34 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
     
     /**
+     * Returns minimum element in BST.
+     * 
+     * @return the minimum element in BST.
+     * @throws NoSuchElementException if the tree is empty. 
+     */
+    public E getMin() {
+        if (root == null) {
+            throw new NoSuchElementException();
+        } else {
+            return root.getMin();
+        }
+    }
+    
+     /**
+     * Returns maximum element in BST.
+     * 
+     * @return the maximum element in BST.
+     * @throws NoSuchElementException if the tree is empty. 
+     */
+    public E getMax() {
+        if (root == null) {
+            throw new NoSuchElementException();
+        } else {
+            return root.getMax();
+        }
+    }
+    
+    /**
      * Indicates whether BST is empty.
      * 
      * @return true if the list is empty, false otherwise. 
@@ -76,9 +106,9 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public int size() {
         return size;
     }   
-}
+
  
-    private class Node<E extends Comparable<E>> {
+private class Node<E extends Comparable<E>> {
         
         private E element;
         private Node<E> left; 
@@ -95,16 +125,14 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
             if (comparison > 0) { //go right 
                 if(right == null) { 
-                    Node<E> insertNode = new Node<E>(newElement);
-                    right = insertNode; 
+                    right = new Node<E>(newElement); 
                     return true;
                 } else {
                     return right.insert(newElement);
                 }
             } else if (comparison < 0) { //go left 
                  if(left == null) {
-                    Node<E> insertNode = new Node<E>(newElement);
-                    left = insertNode;
+                    left = new Node<E>(newElement);
                     return true; 
                 } else {
                     return left.insert(newElement);
@@ -135,6 +163,22 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
+        private E getMin() {
+            if(left == null) {
+                return element; 
+            } else {
+                return left.getMin();
+            }
+        }
+        
+         private E getMax() {
+            if(right == null) {
+                return element; 
+            } else {
+                return right.getMax();
+            }
+        }
+        
          private E getElement() {
              return element;
         }
@@ -159,3 +203,4 @@ public class BinarySearchTree<E extends Comparable<E>> {
             this.right = right;
         }
     }
+} 
