@@ -21,5 +21,54 @@ public class TestBST
        }
        
        System.out.println("testing insert");
+       BinarySearchTree<String> strTree = new BinarySearchTree<String>();
+       try {
+           strTree.insert(null);
+           System.out.println("fail. Null insertion did not throw an error");
+       } catch(NullPointerException e) {
+           System.out.println("pass (when inserting null) " + e);
+       }
+       System.out.println("insert at root: ");
+       System.out.println("mm " + strTree.insert("mm"));
+       System.out.println("t " + strTree.insert("t"));
+       System.out.println("F" + strTree.insert("f"));
+       System.out.println("z " + strTree.insert("z"));
+       System.out.println("adding a duplicate");
+       if(!strTree.insert("z")) {
+           System.out.println("pass");
+       } else {
+           System.out.println("fail"); 
+       }
+       System.out.println("the not null use case");
+       System.out.println("c " + strTree.insert("c"));
+       System.out.println("n " + strTree.insert("n"));
+   }
+   
+   public static void searchTesting() {
+       BinarySearchTree<String> strTree = new BinarySearchTree<String>();
+       try {
+           strTree.search(null);
+           System.out.println("fail. Null search did not throw an error when it should of");
+       } catch(NullPointerException e) {
+           System.out.println("pass (when searching for null) " + e);
+       }
+       System.out.println("seraching for an element in empty list: " + strTree.search("hi"));
+       System.out.println("Loading up the tree");
+       System.out.println("mm " + strTree.insert("mm"));
+       System.out.println("t " + strTree.insert("t"));
+       System.out.println("F" + strTree.insert("f"));
+       System.out.println("z " + strTree.insert("z"));
+       System.out.println("c " + strTree.insert("c"));
+       System.out.println("n " + strTree.insert("n"));
+       System.out.println("searching for root");
+       System.out.println("root search works?" + ("mm".equals(strTree.search("mm"))));
+       System.out.println("works when equals right child? " + "t".equals(strTree.search("t")));
+       System.out.println("works when equals left child? " + "f".equals(strTree.search("f")));
+       System.out.println("when element isn't in tree but valid " + (null == (strTree.search("q"))));
+       System.out.println("One more layer " + "z".equals(strTree.search("z")));
+   }
+   
+   public static void minMaxTesting() {
+           
    }
 }

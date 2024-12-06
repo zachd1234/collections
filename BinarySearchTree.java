@@ -1,10 +1,13 @@
-
 /**
  * A Binary Search Tree implementation with generic elements.
  *
  * @author Zach Derhake.
  * @version 12/4/24.
  */
+
+import java.util.NoSuchElementException;
+
+
 public class BinarySearchTree<E extends Comparable<E>> {
     
     private int size; 
@@ -60,6 +63,35 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
     
     /**
+     * Returns minimum element in BST.
+     * 
+     * @return the minimum element in BST.
+     * @throws NoSuchElementException if the tree is empty. 
+     */
+    public E getMin() {
+        if (root == null) {
+            throw new NoSuchElementException();
+        } else {
+            return root.getMin();
+        }
+    }
+    
+    /**
+     * Returns maximum element in BST.
+     * 
+     * @return the maximum element in BST.
+     * @throws NoSuchElementException if the tree is empty. 
+     */
+    public E getMax() {
+        if (root == null) {
+            throw new NoSuchElementException();
+        } else {
+            return root.getMax();
+        }
+    }
+    
+    
+    /**
      * Indicates whether BST is empty.
      * 
      * @return true if the list is empty, false otherwise. 
@@ -76,7 +108,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public int size() {
         return size;
     }   
-}
+
  
     private class Node<E extends Comparable<E>> {
         
@@ -87,7 +119,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         private Node(E element) {
             this.element = element;
             this.left = null; 
-            this.right = null; 
+            this.right = null;  
         }
         
         private boolean insert(E newElement) {
@@ -135,6 +167,22 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
+        private E getMin() {
+            if(left == null) {
+                return element; 
+            } else {
+                return left.getMin();
+            }
+        }
+        
+         private E getMax() {
+            if(right == null) {
+                return element; 
+            } else {
+                return right.getMax();
+            }
+        }
+        
          private E getElement() {
              return element;
         }
@@ -159,3 +207,4 @@ public class BinarySearchTree<E extends Comparable<E>> {
             this.right = right;
         }
     }
+}
