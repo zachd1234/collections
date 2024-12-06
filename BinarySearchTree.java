@@ -41,6 +41,24 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
     }
+    
+    /**
+     * Searches for and returns matching element.
+     * 
+     * @param E element to search for in the tree. 
+     * @return The matching element in the tree, null if not found.
+     * @throws NullPointerException if the element is null.
+     */
+    public E search(E element) {
+        if (element == null) {
+            throw new NullPointerException(); 
+        } else if (root == null) {
+            return null;
+        } else {
+            return root.search(element);
+        } 
+    }
+    
     /**
      * Indicates whether BST is empty.
      * 
@@ -57,8 +75,9 @@ public class BinarySearchTree<E extends Comparable<E>> {
      */
     public int size() {
         return size;
-    }
-    
+    }   
+}
+ 
     private class Node<E extends Comparable<E>> {
         
         private E element;
@@ -96,6 +115,26 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
+        private E search(E target) {
+            int comparison = target.compareTo(this.element);
+        
+            if (comparison == 0) { //if element matches
+                return this.element; 
+            } else if (comparison > 0) { //go right
+                if(right == null) {
+                    return null; 
+                } else {
+                    return right.search(target);
+                }
+            } else { //go left
+                if(left == null) {
+                    return null;
+                } else {
+                    return left.search(target);
+                }
+            }
+        }
+        
          private E getElement() {
              return element;
         }
@@ -120,4 +159,3 @@ public class BinarySearchTree<E extends Comparable<E>> {
             this.right = right;
         }
     }
-}
