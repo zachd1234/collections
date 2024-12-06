@@ -28,12 +28,19 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public boolean insert(E element) {
         if (element == null) {
             throw new NullPointerException();
+        } else if (root == null) {
+            root = new Node(element);
+            size++;
+            return true;
         } else {
-            //call the Node Class -- root, element
-            root.insert(element); 
+            if(root.insert(element)) {
+                size++;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
-    
     /**
      * Indicates whether BST is empty.
      * 
@@ -52,7 +59,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return size;
     }
     
-    private class Node<E> {
+    private class Node<E extends Comparable<E>> {
         
         private E element;
         private Node<E> left; 
@@ -64,13 +71,33 @@ public class BinarySearchTree<E extends Comparable<E>> {
             this.right = null; 
         }
         
-        private boolean insert(E element) {
-            //search 
-            //
+        private boolean insert(E newElement) {
+            int comparison = newElement.compareTo(this.element);
+
+            if (comparison > 0) { //go right 
+                if(right == null) { 
+                    Node<E> insertNode = new Node<E>(newElement);
+                    right = insertNode; 
+                    return true;
+                } else {
+                    return right.insert(newElement);
+                }
+            } else if (comparison < 0) { //go left 
+                 if(left == null) {
+                    Node<E> insertNode = new Node<E>(newElement);
+                    left = insertNode;
+                    return true; 
+                } else {
+                    return left.insert(newElement);
+                }
+            } else {
+                //if comparison == 0, newElement is a duplicate 
+                return false;
+            }
         }
         
          private E getElement() {
-            return element;
+             return element;
         }
         
         private Node<E> getLeft() {

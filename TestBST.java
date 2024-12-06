@@ -19,5 +19,7 @@ public class TestBST
        } else {
            System.out.println("size: fail");
        }
+       
+       System.out.println("testing insert");
    }
 }
