@@ -7,8 +7,9 @@
 
 import java.util.NoSuchElementException;
 
-public class BinarySearchTree<E extends Comparable<E>> {
 
+public class BinarySearchTree<E extends Comparable<E>> {
+    
     private int size; 
     private Node<E> root;
 
@@ -75,7 +76,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
     
-     /**
+    /**
      * Returns maximum element in BST.
      * 
      * @return the maximum element in BST.
@@ -88,6 +89,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return root.getMax();
         }
     }
+    
     
     /**
      * Indicates whether BST is empty.
@@ -108,7 +110,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }   
 
  
-private class Node<E extends Comparable<E>> {
+    private class Node<E extends Comparable<E>> {
         
         private E element;
         private Node<E> left; 
@@ -117,7 +119,7 @@ private class Node<E extends Comparable<E>> {
         private Node(E element) {
             this.element = element;
             this.left = null; 
-            this.right = null; 
+            this.right = null;  
         }
         
         private boolean insert(E newElement) {
@@ -125,14 +127,16 @@ private class Node<E extends Comparable<E>> {
 
             if (comparison > 0) { //go right 
                 if(right == null) { 
-                    right = new Node<E>(newElement); 
+                    Node<E> insertNode = new Node<E>(newElement);
+                    right = insertNode; 
                     return true;
                 } else {
                     return right.insert(newElement);
                 }
             } else if (comparison < 0) { //go left 
                  if(left == null) {
-                    left = new Node<E>(newElement);
+                    Node<E> insertNode = new Node<E>(newElement);
+                    left = insertNode;
                     return true; 
                 } else {
                     return left.insert(newElement);
@@ -203,4 +207,4 @@ private class Node<E extends Comparable<E>> {
             this.right = right;
         }
     }
-} 
+}
