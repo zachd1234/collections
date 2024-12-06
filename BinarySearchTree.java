@@ -127,16 +127,14 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
             if (comparison > 0) { //go right 
                 if(right == null) { 
-                    Node<E> insertNode = new Node<E>(newElement);
-                    right = insertNode; 
+                    right = new Node<E>(newElement); 
                     return true;
                 } else {
                     return right.insert(newElement);
                 }
             } else if (comparison < 0) { //go left 
                  if(left == null) {
-                    Node<E> insertNode = new Node<E>(newElement);
-                    left = insertNode;
+                    left = new Node<E>(newElement);
                     return true; 
                 } else {
                     return left.insert(newElement);

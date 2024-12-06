@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 
 /**
  * Testing the Binary Search Tree Class
@@ -69,6 +70,30 @@ public class TestBST
    }
    
    public static void minMaxTesting() {
-           
+      BinarySearchTree<String> strTree = new BinarySearchTree<String>();
+      System.out.println("testing with an empty list");
+      try {
+           strTree.getMin();
+       } catch (NoSuchElementException e) {
+           System.out.println("pass. (when finding min in empty list) " + e);
+      }
+      
+       try {
+           strTree.getMax();
+       } catch (NoSuchElementException e) {
+           System.out.println("pass. (when finding max in empty list) " + e);
+      }
+      
+      strTree.insert("mm");
+      System.out.println("min works when only element is root? " + "mm".equals(strTree.getMin()));
+      System.out.println("max works when only element is root? " + "mm".equals(strTree.getMax()));
+      strTree.insert("f");
+      strTree.insert("t");
+      System.out.println("min works when there are children " + "f".equals(strTree.getMin()));
+      System.out.println("max works when there are children " + "t".equals(strTree.getMax()));
+      strTree.insert("a");
+      strTree.insert("z");
+      System.out.println("min works when there are many children " + "a".equals(strTree.getMin()));
+      System.out.println("max works when there are many children " + "z".equals(strTree.getMax()));
    }
 }
