@@ -20,6 +20,8 @@ public class TestBST
        } else {
            System.out.println("size: fail");
        }
+       System.out.println("testing toString");
+       System.out.println("toString with emtpy: " + intTree.toString().equals(""));
        
        System.out.println("testing insert");
        BinarySearchTree<String> strTree = new BinarySearchTree<String>();
@@ -43,6 +45,7 @@ public class TestBST
        System.out.println("the not null use case");
        System.out.println("c " + strTree.insert("c"));
        System.out.println("n " + strTree.insert("n"));
+       System.out.println(strTree.toString());
    }
    
    public static void searchTesting() {

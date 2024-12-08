@@ -12,6 +12,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     
     private int size; 
     private Node<E> root;
+    private int depth;
 
     /**
      * Initializes an empty binary search tree. 
@@ -19,6 +20,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public BinarySearchTree() {
         size = 0;
         root = null;
+        depth = 0;
     } 
     
     /**
@@ -42,6 +44,23 @@ public class BinarySearchTree<E extends Comparable<E>> {
             } else {
                 return false;
             }
+        }
+    }
+    
+    /**
+     * Removes and returns matching element.
+     * 
+     * @param E element that will be searched, removed and returned from BST.
+     * @return The matching element that was removed from BST, returns null if not found.
+     * @throws NullPointerException if element is null.
+     */
+    public E remove(E element) {
+        if (element == null) {
+            throw new NullPointerException();
+        } else if (root == null) {
+            return null;
+        } else {
+            return root.remove(element, null);
         }
     }
     
@@ -90,6 +109,45 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
     
+    /**
+     * Removes and returns minimum element.
+     * 
+     * @The minimum element that was removed from BST.
+     */
+    public E removeMin(){
+        if (root == null) {
+            throw new NoSuchElementException();
+        } else {
+            return root.removeMin(null);
+        }
+    }
+    
+    /**
+     * Removes and returns maximum element.
+     * 
+     * @The maximum element that was removed from BST.
+     */
+    public E removeMax(){
+        if (root == null) {
+            throw new NoSuchElementException();
+        } else {
+            return root.removeMax(null);
+        }
+    }
+    
+     /**
+     * Returns number of levels in BST.
+     * 
+     * @return number of levels in BST.
+     */
+    public int getDepth(){
+        if (root == null) {
+            return 0;
+        } else {
+             root.getDepth(1);
+             return depth;
+        }
+    }
     
     /**
      * Indicates whether BST is empty.
@@ -108,9 +166,40 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public int size() {
         return size;
     }   
-
+    
+    private void setRoot(Node<E> newRoot) {
+        root = newRoot;
+    }
+    
+    /**
+     * Returns elements in sorted array.
+     * 
+     * @return a sorted array of generic elements in the BST
+     *     public E[] toArray() {
+     */
+     public E[] toArray() {
+         E[] arr = new E[size];
+         if (root  == null) {
+             return arr; 
+         } else {
+                
+         }
+    }
+    
+    /**
+     * Returns elements in sorted order as a string.
+     * 
+     * @return string of BST elements in comma seperated sorted order
+     */
+    public String toString() {
+        if (root == null) {
+            return "";
+        } else {
+            return root.buildToString();
+        }
+    }
  
-    private class Node<E extends Comparable<E>> {
+   private class Node<E extends Comparable<E>> {
         
         private E element;
         private Node<E> left; 
@@ -142,6 +231,69 @@ public class BinarySearchTree<E extends Comparable<E>> {
             } else {
                 //if comparison == 0, newElement is a duplicate 
                 return false;
+            }
+        }
+        
+        private E remove(E element, Node<E> parent) {
+            int comparison = element.compareTo(this.element);
+        
+            if (comparison == 0) { //if element matches
+                //we found it
+                if (right != null && left != null) { //remove two parents
+                    E replacement = left.removeMax(this);
+                    E temp = this.element;
+                    this.element = replacement;
+                    return temp;
+                } else if (left != null) {
+                    if (parent == null) { //root use case
+                        root = left; 
+                        return this.element;
+                    } else {
+                        if(parent.left == this) {
+                            parent.left = left;
+                        } else {
+                            parent.right = left;
+                        }
+                        return this.element;
+                    }
+                } else if (right != null) {
+                     if (parent == null) { //root use case
+                        root = right; 
+                        return this.element;
+                    } else {
+                        if(parent.right == this) {
+                            parent.right = right;
+                        } else {
+                            parent.left = right;
+                        }
+                        return this.element;
+                    }
+                } else { //remove leaf
+                    if (parent != null) {
+                        //did it come from parents right or left?
+                        if(parent.left == this) {
+                            parent.left = null;
+                        } else {
+                            parent.right = null;
+                        }
+                        return this.element;
+                    } else {
+                        root = null;
+                        return this.element;
+                    }
+                } 
+            } else if (comparison > 0) { //go right
+                if(right == null) {
+                    return null;
+                } else {
+                    return right.remove(element, parent);
+                }
+            } else { //go left
+                if(left == null) {
+                    return null;
+                } else {
+                    return left.remove(element, parent);
+                }
             }
         }
         
@@ -181,6 +333,68 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
+        private E removeMin(Node<E> parent) {
+                if(left == null) {
+                    if(parent == null) {
+                        if (right == null) {
+                           root = null;
+                           return element;
+                        } else {
+                            root = right;
+                            return element;
+                        }
+                    } else {
+                        if(right == null) {
+                            parent.setLeft(null);
+                            return element;  //when min is the root               
+                        } else {
+                            parent.setLeft(right);
+                            return element;
+                        }
+                    }
+                } else {
+                    return left.removeMin(this);
+                }
+        }
+        
+        private E removeMax(Node<E> parent) {
+                if(right == null) {
+                    if(parent == null) {
+                        if (left == null) {
+                           root = null;
+                           return element;
+                        } else {
+                            root = left;
+                            return element;
+                        }
+                    } else {
+                        if(left == null) {
+                            parent.setRight(null);
+                            return element;  //when min is the root               
+                        } else {
+                            parent.setRight(left);
+                            return element;
+                        }
+                    }
+                } else {
+                    return right.removeMin(this);
+                }
+        }
+        
+        private void getDepth(int level) {
+            if(left != null) {
+                left.getDepth(level+1);
+            } 
+            
+            if (right != null) {
+                right.getDepth(level+1);
+            } 
+            
+            if (level > depth) {
+                depth = level;
+            }
+        }
+        
          private E getElement() {
              return element;
         }
@@ -197,12 +411,29 @@ public class BinarySearchTree<E extends Comparable<E>> {
             this.element = element;
         }
         
-        private void setLeft (Node<E> next){
+        private void setLeft (Node<E> next) {
             this.left = left; 
         }
         
         private void setRight (Node<E> right) { 
             this.right = right;
         }
-    }
+                
+        private String buildToString() {
+            boolean hasLeft = left != null;
+            boolean hasRight = right != null;
+        
+            if (hasLeft && hasRight) {
+                return "" + left.buildToString() + ", " + element + ", " + right.buildToString();
+            } else if (hasLeft) {
+                return "" + left.buildToString() + ", " + element;
+            } else if (hasRight) {
+                return "" + element + ", " + right.buildToString();
+            } else {
+                //when node doesn't have children 
+                return "" + element;
+            }
+            
+        }
+   }
 }
