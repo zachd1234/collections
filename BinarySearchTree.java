@@ -118,7 +118,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
         if (root == null) {
             throw new NoSuchElementException();
         } else {
-            return root.removeMin(null);
+            E min = getMin();
+            root = root.removeMin();
+            size--;
+            return min;
         }
     }
     
@@ -131,7 +134,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
         if (root == null) {
             throw new NoSuchElementException();
         } else {
-            return root.removeMax(null);
+            E max = getMax();
+            root = root.removeMax();
+            size--;
+            return max;
         }
     }
     
@@ -333,52 +339,30 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
-        private E removeMin(Node<E> parent) {
-                if(left == null) {
-                    if(parent == null) {
-                        if (right == null) {
-                           root = null;
-                           return element;
-                        } else {
-                            root = right;
-                            return element;
-                        }
-                    } else {
-                        if(right == null) {
-                            parent.setLeft(null);
-                            return element;  //when min is the root               
-                        } else {
-                            parent.setLeft(right);
-                            return element;
-                        }
-                    }
+        private Node<E> removeMin() {
+            if(left == null) {
+                if(right == null) {
+                    return null;
                 } else {
-                    return left.removeMin(this);
+                    return right;
                 }
+            } else {                
+                left = left.removeMin();
+                return this;
+            }
         }
         
-        private E removeMax(Node<E> parent) {
-                if(right == null) {
-                    if(parent == null) {
-                        if (left == null) {
-                           root = null;
-                           return element;
-                        } else {
-                            root = left;
-                            return element;
-                        }
-                    } else {
-                        if(left == null) {
-                            parent.setRight(null);
-                            return element;  //when min is the root               
-                        } else {
-                            parent.setRight(left);
-                            return element;
-                        }
-                    }
+        private Node<E> removeMax() {
+            if(right == null) {
+                if(left == null) {
+                    return null;
                 } else {
-                    return right.removeMin(this);
+                    return left;
                 }
+            } else {                
+                right = right.removeMin();
+                return this;
+            }
         }
         
         private void getDepth(int level) {
