@@ -60,6 +60,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         } else if (root == null) {
             return null;
         } else {
+            size--;
             return root.remove(element, null);
         }
     }
