@@ -12,7 +12,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
     
     private int size; 
     private Node<E> root;
-    private int depth;
 
     /**
      * Initializes an empty binary search tree. 
@@ -20,7 +19,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public BinarySearchTree() {
         size = 0;
         root = null;
-        depth = 0;
     } 
     
     /**
@@ -155,8 +153,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         if (root == null) {
             return 0;
         } else {
-             root.getDepth(1);
-             return depth;
+             return root.getDepth();
         }
     }
     
@@ -178,10 +175,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return size;
     }   
     
-    private void setRoot(Node<E> newRoot) {
-        root = newRoot;
-    }
-    
     /**
      * Returns elements in sorted array.
      * 
@@ -193,7 +186,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
          if (root  == null) {
              return arr; 
          } else {
-                
+              return arr;  
          }
     }
     
@@ -342,17 +335,21 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
-        private void getDepth(int level) {
-            if(left != null) {
-                left.getDepth(level+1);
-            } 
-            
-            if (right != null) {
-                right.getDepth(level+1);
-            } 
-            
-            if (level > depth) {
-                depth = level;
+        private int getDepth() {            
+            if(left != null && right != null) {
+                int leftDepth = 1 + left.getDepth();
+                int rightDepth = 1 + right.getDepth();
+                if (leftDepth > rightDepth) {
+                    return leftDepth;
+                } else {
+                    return rightDepth; 
+                }
+            } else if (left != null) {
+                return 1 + left.getDepth(); 
+            } else if (right != null) {
+                return 1 + right.getDepth(); 
+            } else {
+                return 1; 
             }
         }
         
