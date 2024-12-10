@@ -250,7 +250,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
             
             if (comparison == 0) {
                 // we found it
-                if (right != null && left != null) { //remove two parents
+                if (right != null && left != null) { //remove when two children
                     E replacement = left.getMax();
                     left = left.removeMax();
                     this.element = replacement;
