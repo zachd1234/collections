@@ -1,5 +1,5 @@
 import java.util.NoSuchElementException;
-
+import java.util.Arrays;
 /**
  * Testing the Binary Search Tree Class
  *
@@ -98,5 +98,35 @@ public class TestBST
       strTree.insert("z");
       System.out.println("min works when there are many children " + "a".equals(strTree.getMin()));
       System.out.println("max works when there are many children " + "z".equals(strTree.getMax()));
+   }
+   
+   public static void treeCutDownTesting() {
+          BinarySearchTree<String> strTree = new BinarySearchTree<String>();
+          System.out.println("toDepth works at empty? " + (strTree.getDepth() == 0));
+          try {
+              strTree.removeMin();
+              System.out.println("fail. remove min doesn't work at empty");
+          } catch(NoSuchElementException e) {
+              System.out.println("pass. remove min works at empty tree" + e); 
+          }
+          
+          try {
+              strTree.removeMax();
+              System.out.println("fail. remove max doesn't work at empty");
+          } catch(NoSuchElementException e) {
+              System.out.println("pass. remove max works at empty tree" + e); 
+          }
+          
+          strTree.insert("mm");
+          strTree.insert("f");
+          strTree.insert("t");
+          strTree.insert("a");
+          strTree.insert("z");
+          strTree.insert("j");
+          strTree.insert("s");
+          System.out.println(strTree.toString());
+          System.out.println(Arrays.toString(strTree.toArray()));
+          System.out.println("toDepth works? " + (strTree.getDepth() == 3));
+          
    }
 }

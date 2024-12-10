@@ -1,6 +1,7 @@
 /**
  * A Binary Search Tree implementation with generic elements.
  *
+ *'
  * @author Zach Derhake.
  * @version 12/4/24.
  */
@@ -182,11 +183,12 @@ public class BinarySearchTree<E extends Comparable<E>> {
      *     public E[] toArray() {
      */
      public E[] toArray() {
-         E[] arr = (E[]) new Object[size];
+         E[] arr = (E[]) new Comparable[size];
          if (root  == null) {
              return arr; 
          } else {
-              return arr;  
+              root.toArray(0, arr);
+              return arr; 
          }
     }
     
@@ -375,6 +377,21 @@ public class BinarySearchTree<E extends Comparable<E>> {
         
         private void setRight (Node<E> right) { 
             this.right = right;
+        }
+        
+        private int toArray(int index, E[] arr) {
+            
+            if (left != null) {
+                index = left.toArray(index, arr); 
+            }
+            
+            arr[index] = this.element; 
+            index++; 
+            
+            if (right != null) {
+                index = right.toArray(index, arr);
+            }
+            return index;
         }
                 
         private String buildToString() {
