@@ -60,8 +60,12 @@ public class BinarySearchTree<E extends Comparable<E>> {
         } else if (root == null) {
             return null;
         } else {
-            size--;
-            return root.remove(element, null);
+            E searchVal = root.search(element);
+            if (searchVal != null) {
+                size--;
+                root = root.remove(element);
+            }
+            return searchVal; 
         }
     }
     
@@ -185,7 +189,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
      *     public E[] toArray() {
      */
      public E[] toArray() {
-         E[] arr = new E[size];
+         E[] arr = (E[]) new Object[size];
          if (root  == null) {
              return arr; 
          } else {
@@ -241,67 +245,39 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
         }
         
-        private E remove(E element, Node<E> parent) {
+        private Node<E> remove(E element) {
             int comparison = element.compareTo(this.element);
-        
-            if (comparison == 0) { //if element matches
-                //we found it
+            
+            if (comparison == 0) {
+                // we found it
                 if (right != null && left != null) { //remove two parents
-                    E replacement = left.removeMax(this);
-                    E temp = this.element;
+                    E replacement = left.getMax();
+                    left = left.removeMax();
                     this.element = replacement;
-                    return temp;
+                    return this;
                 } else if (left != null) {
-                    if (parent == null) { //root use case
-                        root = left; 
-                        return this.element;
-                    } else {
-                        if(parent.left == this) {
-                            parent.left = left;
-                        } else {
-                            parent.right = left;
-                        }
-                        return this.element;
-                    }
+                    return left;
                 } else if (right != null) {
-                     if (parent == null) { //root use case
-                        root = right; 
-                        return this.element;
-                    } else {
-                        if(parent.right == this) {
-                            parent.right = right;
-                        } else {
-                            parent.left = right;
-                        }
-                        return this.element;
-                    }
+                    return right; 
                 } else { //remove leaf
-                    if (parent != null) {
-                        //did it come from parents right or left?
-                        if(parent.left == this) {
-                            parent.left = null;
-                        } else {
-                            parent.right = null;
-                        }
-                        return this.element;
-                    } else {
-                        root = null;
-                        return this.element;
-                    }
-                } 
-            } else if (comparison > 0) { //go right
-                if(right == null) {
                     return null;
-                } else {
-                    return right.remove(element, parent);
                 }
-            } else { //go left
+            } else if (comparison < 0) { //go left            
                 if(left == null) {
-                    return null;
+                    return this;
                 } else {
-                    return left.remove(element, parent);
+                    left = left.remove(element);
+                    return this; 
                 }
-            }
+            } else { //go right
+                if(right == null) {
+                    return this;
+                } else {
+                    right = right.remove(element);
+                    return this;
+                }
+            } 
+
         }
         
         private E search(E target) {
