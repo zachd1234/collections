@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+  import java.util.NoSuchElementException;
 import java.util.Arrays;
 /**
  * Testing the Binary Search Tree Class
@@ -118,15 +118,108 @@ public class TestBST
           }
           
           strTree.insert("mm");
-          strTree.insert("f");
-          strTree.insert("t");
-          strTree.insert("a");
-          strTree.insert("z");
-          strTree.insert("j");
-          strTree.insert("s");
           System.out.println(strTree.toString());
           System.out.println(Arrays.toString(strTree.toArray()));
+          System.out.println("toDepth works? " + (strTree.getDepth() == 1));
+          strTree.insert("f");
+          System.out.println(strTree.toString());
+          System.out.println(Arrays.toString(strTree.toArray()));
+          System.out.println("toDepth works? " + (strTree.getDepth() == 2));
+          strTree.insert("t");
+          System.out.println(strTree.toString());
+          System.out.println(Arrays.toString(strTree.toArray()));
+          System.out.println("toDepth works? " + (strTree.getDepth() == 2));
+          strTree.insert("a");
           System.out.println("toDepth works? " + (strTree.getDepth() == 3));
-          
-   }
+          strTree.insert("z");
+          System.out.println(strTree.toString());
+          System.out.println(Arrays.toString(strTree.toArray()));
+          strTree.insert("j");
+          System.out.println("toDepth works? " + (strTree.getDepth() == 3));
+          strTree.insert("s");
+          System.out.println("toDepth works? " + (strTree.getDepth() == 3));
+          System.out.println(strTree.toString());
+          System.out.println(Arrays.toString(strTree.toArray()));
+          System.out.println(strTree.removeMin());
+          System.out.println(Arrays.toString(strTree.toArray()));
+          System.out.println(strTree.removeMax());
+          System.out.println(strTree.toString());  
+          System.out.println(strTree.remove("j"));    
+          System.out.println(strTree.remove("s"));   
+          System.out.println(strTree.toString());    
+        }
+   
+   public static void removeMethodsTesting() {
+       BinarySearchTree<String> strTree = new BinarySearchTree<String>();
+       System.out.println("Removing when empty " + strTree.remove("f"));
+       strTree.insert("mm");
+       System.out.println("searching for non existant element " + strTree.remove("f"));
+       try {
+           strTree.remove(null);
+           System.out.println("fail when adding null to tree");
+       } catch(NullPointerException e) {
+           System.out.println("Pass when adding null to tree " + e);
+       }
+       
+       
+       
+       if (strTree.removeMax().equals("mm")) {
+           System.out.println("pass when max is root"); 
+       } else {
+           System.out.println("fail when max is root"); 
+       }
+       System.out.println(strTree.toString());
+       
+       strTree.insert("mm");
+       if (strTree.removeMin().equals("mm")) {
+           System.out.println("pass when min is root"); 
+       } else {
+           System.out.println("fail when min is root"); 
+       }
+       System.out.println(strTree.toString());
+       strTree.insert("mm");
+       strTree.insert("t");
+       System.out.println(strTree.removeMin());
+       System.out.println(strTree.toString());
+       strTree.removeMin();
+       strTree.insert("mm");       
+       strTree.insert("f");
+       System.out.println(strTree.removeMax());
+       System.out.println(strTree.toString());
+       strTree.removeMin();
+       strTree.insert("mm");       
+       strTree.removeMin();
+       System.out.println(strTree.toString());
+       strTree.insert("mm");       
+       strTree.removeMax();
+       System.out.println(strTree.toString());
+       strTree.insert("mm");
+       System.out.println(strTree.remove("mm"));
+       System.out.println("string: " + strTree.toString());
+       strTree.insert("mm");
+       strTree.insert("f");
+       System.out.println("removed: " + strTree.remove("f"));
+       System.out.println("string: " + strTree.toString());
+       strTree.insert("f");
+       strTree.remove("mm"); 
+       System.out.println("string: " + strTree.toString());
+       System.out.println("removed: " + strTree.remove("f"));
+       strTree.insert("mm");
+       strTree.insert("z");
+       System.out.println("removed: " + strTree.remove("mm"));
+       System.out.println("string: " + strTree.toString());
+       System.out.println("removed: " + strTree.remove("z"));
+       strTree.insert("mm");
+       strTree.insert("f");
+       strTree.insert("t");
+       strTree.insert("q");
+       strTree.insert("c");
+       System.out.println("string: " + strTree.toString());
+       System.out.println("removed: " + strTree.remove("mm"));
+       System.out.println("string: " + strTree.toString());
+       strTree.insert("e");
+       System.out.println("string: " + strTree.toString());
+       System.out.println("removed: " + strTree.remove("f"));
+       System.out.println("string: " + strTree.toString());
+    }   
 }

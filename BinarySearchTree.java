@@ -332,7 +332,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
                     return left;
                 }
             } else {                
-                right = right.removeMin();
+                right = right.removeMax();
                 return this;
             }
         }
