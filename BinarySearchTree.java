@@ -1,7 +1,6 @@
 /**
  * A Binary Search Tree implementation with generic elements.
  *
- *'
  * @author Zach Derhake.
  * @version 12/4/24.
  */
@@ -25,9 +24,9 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Inserts element into BST.
      *  
-     * @param E element to be added into the tree 
-     * @return true if the element was sorted, false otherwise
-     * @throws NullPointerException if element is null
+     * @param E element to be added into the tree.
+     * @return True if the element was sorted, false otherwise.
+     * @throws NullPointerException if element is null.
      */
     public boolean insert(E element) {
         if (element == null) {
@@ -50,7 +49,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
      * Removes and returns matching element.
      * 
      * @param E element that will be searched, removed and returned from BST.
-     * @return The matching element that was removed from BST, returns null if not found.
+     * @return The matching element that was removed from BST, null if not found.
      * @throws NullPointerException if element is null.
      */
     public E remove(E element) {
@@ -88,7 +87,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Returns minimum element in BST.
      * 
-     * @return the minimum element in BST.
+     * @return The minimum element in BST.
      * @throws NoSuchElementException if the tree is empty. 
      */
     public E getMin() {
@@ -102,7 +101,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Returns maximum element in BST.
      * 
-     * @return the maximum element in BST.
+     * @return The maximum element in BST.
      * @throws NoSuchElementException if the tree is empty. 
      */
     public E getMax() {
@@ -116,7 +115,8 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Removes and returns minimum element.
      * 
-     * @The minimum element that was removed from BST.
+     * @return The minimum element that was removed from BST.
+     * @throws NoSuchElementException if the tree is empty 
      */
     public E removeMin(){
         if (root == null) {
@@ -132,7 +132,8 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Removes and returns maximum element.
      * 
-     * @The maximum element that was removed from BST.
+     * @return The maximum element that was removed from BST.
+     * @throws NoSuchElementException if the tree is empty.  
      */
     public E removeMax(){
         if (root == null) {
@@ -148,7 +149,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
      /**
      * Returns number of levels in BST.
      * 
-     * @return number of levels in BST.
+     * @return Number of levels in BST.
      */
     public int getDepth(){
         if (root == null) {
@@ -161,7 +162,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Indicates whether BST is empty.
      * 
-     * @return true if the list is empty, false otherwise. 
+     * @return True if the list is empty, false otherwise. 
      */
     public boolean isEmpty() {
         return size <= 0;
@@ -170,7 +171,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Returns number of elements in BST.
      * 
-     * @return number of elements in BST.
+     * @return Number of elements in BST.
      */
     public int size() {
         return size;
@@ -179,8 +180,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Returns elements in sorted array.
      * 
-     * @return a sorted array of generic elements in the BST
-     *     public E[] toArray() {
+     * @return A sorted array of generic elements in the BST.
      */
      public E[] toArray() {
          E[] arr = (E[]) new Comparable[size];
@@ -195,7 +195,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     /**
      * Returns elements in sorted order as a string.
      * 
-     * @return string of BST elements in comma seperated sorted order
+     * @return String of BST elements in comma seperated sorted order
      */
     public String toString() {
         if (root == null) {
@@ -205,7 +205,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
  
-   private class Node<E extends Comparable<E>> {
+    private class Node<E extends Comparable<E>> {
         
         private E element;
         private Node<E> left; 
@@ -251,10 +251,21 @@ public class BinarySearchTree<E extends Comparable<E>> {
                     this.element = replacement;
                     return this;
                 } else if (left != null) {
-                    return left;
-                } else if (right != null) {
-                    return right; 
+                    Node<E> newNode = this.left;
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
+                    return newNode;
+                } else if (right != null) {  
+                    Node<E> newNode = this.right;
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
+                    return newNode; 
                 } else { //remove leaf
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
                     return null;
                 }
             } else if (comparison < 0) { //go left            
@@ -313,10 +324,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
         
         private Node<E> removeMin() {
             if(left == null) {
-                if(right == null) {
-                    return null;
+                if(right == null) { //min is a leaf
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
+                    return null; 
                 } else {
-                    return right;
+                    Node<E> newNode = this.right;
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
+                    return newNode;
                 }
             } else {                
                 left = left.removeMin();
@@ -326,9 +344,16 @@ public class BinarySearchTree<E extends Comparable<E>> {
         
         private Node<E> removeMax() {
             if(right == null) {
-                if(left == null) {
+                if(left == null) { //max is a leaf
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
                     return null;
                 } else {
+                    Node<E> newNode = this.left;
+                    this.left = null;
+                    this.right = null;
+                    this.element = null;
                     return left;
                 }
             } else {                
@@ -405,10 +430,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
             } else if (hasRight) {
                 return "" + element + ", " + right.buildToString();
             } else {
-                //when node doesn't have children 
+                //when node is leaf
                 return "" + element;
             }
             
         }
-   }
+    }
 }
