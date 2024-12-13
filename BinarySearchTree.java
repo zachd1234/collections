@@ -6,9 +6,10 @@
  */
 
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 
-public class BinarySearchTree<E extends Comparable<E>> {
+public class BinarySearchTree<E extends Comparable<E>> implements Iterable {
     
     private int size; 
     private Node<E> root;
@@ -205,6 +206,28 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
  
+    public Iterator<E> iterator() {
+        return new BSTIterator(root);
+    }
+
+    private class BSTIterator implements Iterator<E> {
+        private MyStackLL stack; 
+        
+        public BSTIterator(Node<E> root) {
+            stack = new MyStackLL();
+        }
+        
+        
+        public boolean hasNext() {
+        
+        }
+        
+        public E next() {
+            
+        }
+
+    }
+   
     private class Node<E extends Comparable<E>> {
         
         private E element;
@@ -239,7 +262,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
                 return false;
             }
         }
-        
+            
         private Node<E> remove(E element) {
             int comparison = element.compareTo(this.element);
             
