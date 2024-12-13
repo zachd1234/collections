@@ -243,7 +243,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         private Node<E> remove(E element) {
             int comparison = element.compareTo(this.element);
             
-            if (comparison == 0) {
+              if (comparison == 0) {
                 // we found it
                 if (right != null && left != null) { //remove when two children
                     E replacement = left.getMax();
@@ -251,21 +251,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
                     this.element = replacement;
                     return this;
                 } else if (left != null) {
-                    Node<E> newNode = this.left;
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
-                    return newNode;
-                } else if (right != null) {  
-                    Node<E> newNode = this.right;
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
-                    return newNode; 
+                    return left;
+                } else if (right != null) {
+                    return right; 
                 } else { //remove leaf
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
                     return null;
                 }
             } else if (comparison < 0) { //go left            
@@ -323,37 +312,24 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
         
         private Node<E> removeMin() {
-            if(left == null) {
-                if(right == null) { //min is a leaf
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
-                    return null; 
+              if(left == null) {
+                if(right == null) {
+                    return null;
                 } else {
-                    Node<E> newNode = this.right;
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
-                    return newNode;
+                    return right;
                 }
             } else {                
                 left = left.removeMin();
                 return this;
+
             }
         }
         
         private Node<E> removeMax() {
-            if(right == null) {
-                if(left == null) { //max is a leaf
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
+               if(right == null) {
+                if(left == null) {
                     return null;
                 } else {
-                    Node<E> newNode = this.left;
-                    this.left = null;
-                    this.right = null;
-                    this.element = null;
                     return left;
                 }
             } else {                
