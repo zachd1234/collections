@@ -221,5 +221,28 @@ public class TestBST
        System.out.println("string: " + strTree.toString());
        System.out.println("removed: " + strTree.remove("f"));
        System.out.println("string: " + strTree.toString());
-    }   
+    }
+    
+   public static void testIterator(){
+       BinarySearchTree<String> strTree = new BinarySearchTree<String>();
+       System.out.println("Loading up the tree");
+       System.out.println("mm " + strTree.insert("mm"));
+       System.out.println("t " + strTree.insert("t"));
+       System.out.println("F" + strTree.insert("f"));
+       System.out.println("z " + strTree.insert("z"));
+       System.out.println("c " + strTree.insert("c"));
+       System.out.println("n " + strTree.insert("n"));
+       for(String element : strTree) {
+           System.out.print(element + ", ");
+       }
+       System.out.println();
+       int size = 0;
+       for(String element2 : strTree) {
+           System.out.print(element2 + ", ");
+           if(size >= 3) {
+               break; 
+           }
+           size++;
+       }
+   }
 }
