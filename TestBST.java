@@ -245,4 +245,8 @@ public class TestBST
            size++;
        }
    }
+   
+   public static void testEval() {
+       System.out.println(ArithmeticExpressionEval.evaluate("(1+2)*3"));
+   }
 }

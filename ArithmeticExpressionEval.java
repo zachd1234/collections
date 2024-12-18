@@ -30,25 +30,31 @@ public class ArithmeticExpressionEval {
         System.out.println("Exited");
     }
     
-    public static double evaluate(String expression) {
+    public static MyRobustLinkedList<ExpressionTree> evaluate(String expression) {
         //assign priorities
-        String[] expressionList = tokenize(expression);
+        String[] tokenArray = tokenize(expression);
         int basePriority= 1;
         MyRobustLinkedList<ExpressionTree> nodeList = new MyRobustLinkedList<ExpressionTree>();
         
-        for(String character : expressionList) {
-            if(("+-*/()".indexOf(character) != -1)) {
+        for(String token : tokenArray) {
+            if(("+-*/()".indexOf(token) != -1)) {
                 //add opperator node
-                int oppType = "+-*/()".indexOf(character);
-                if(oppType == 0 || oppType == 1) {
-                    ExpressionTree newNode = new OperatorNode(character, basePriority); 
+                int oppType = "+-*/()".indexOf(token);
+                if(oppType == 0 || oppType == 1){
+                    nodeList.addTail(new OperatorNode(token, basePriority)); 
+                } else if(oppType == 2 || oppType == 3) {
+                    nodeList.addTail(new OperatorNode(token, basePriority + 1)); 
+                } else if(oppType == 4) {
+                    basePriority = basePriority + 2;
+                } else { //oppType must equal 5 ")"
+                    basePriority = basePriority - 2; 
                 }
             } else {
-                //add number node
-            }
+                nodeList.addTail(new NumberNode(Double.parseDouble(token))); 
+             }
         }
         
-        return 0; // so it will compile
+        return nodeList; // so it will compile
     }
 
     /**
@@ -108,6 +114,10 @@ public class ArithmeticExpressionEval {
         private double getNumber() {
             return number;
         }
+        
+        public String toString() {
+            return "number: " + number;
+        }
     }
     
     private static class OperatorNode extends ExpressionTree {
@@ -141,6 +151,10 @@ public class ArithmeticExpressionEval {
         
         private void setRightTree(ExpressionTree tree) {
             rightTree = tree;
+        }
+        
+        public String toString() {
+            return "operator: " + operator + "priority: " + priority;
         }
     }
 }
