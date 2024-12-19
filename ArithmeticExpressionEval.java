@@ -30,10 +30,10 @@ public class ArithmeticExpressionEval {
         System.out.println("Exited");
     }
     
-    public static MyRobustLinkedList<ExpressionTree> evaluate(String expression) {
-        //assign priorities
+    public static double evaluate(String expression) {
         String[] tokenArray = tokenize(expression);
         int basePriority= 1;
+        int maxBase = 1; 
         MyRobustLinkedList<ExpressionTree> nodeList = new MyRobustLinkedList<ExpressionTree>();
         
         for(String token : tokenArray) {
@@ -46,15 +46,37 @@ public class ArithmeticExpressionEval {
                     nodeList.addTail(new OperatorNode(token, basePriority + 1)); 
                 } else if(oppType == 4) {
                     basePriority = basePriority + 2;
+                    if (basePriority > maxBase) {
+                        maxBase = basePriority;
+                    }
                 } else { //oppType must equal 5 ")"
                     basePriority = basePriority - 2; 
                 }
             } else {
+                //add number node
                 nodeList.addTail(new NumberNode(Double.parseDouble(token))); 
              }
         }
+        maxBase++; //to account for potential "*/"
+        for (int i = maxBase; i >= 0; i--) {
+            for (int k = 0; k < nodeList.size(); k++) {
+                if(nodeList.get(i) instanceof OperatorNode) {
+                    OperatorNode curNode = (OperatorNode) nodeList.get(i);
+                    if(curNode.getPriority() == i) {
+                        //assumes there is left and right neighbors 
+                        curNode.setLeftTree(nodeList.get(i-1)); 
+                        curNode.setRightTree(nodeList.get(i+1)); 
+                        nodeList.remove(i-1);
+                        nodeList.remove(i+1);
+                    }
+                }
+            }
+        }
+         
         
-        return nodeList; // so it will compile
+        String postFixOrder = nodeList.get(0).toString();
+        
+        return Applications.evalPostfix(postFixOrder);
     }
 
     /**
@@ -94,6 +116,7 @@ public class ArithmeticExpressionEval {
         return tokens.toArray(new String[0]);
     }
     
+    
     // Binary tree for representing an arithmetic expression
     // Subclasses for operators versus numbers
     private static class ExpressionTree implements Comparable<ExpressionTree> {
@@ -116,7 +139,7 @@ public class ArithmeticExpressionEval {
         }
         
         public String toString() {
-            return "number: " + number;
+            return "" + number;
         }
     }
     
@@ -154,7 +177,7 @@ public class ArithmeticExpressionEval {
         }
         
         public String toString() {
-            return "operator: " + operator + "priority: " + priority;
+            return "" + leftTree + " " + rightTree + " " + operator;
         }
     }
 }
