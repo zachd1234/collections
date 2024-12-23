@@ -119,6 +119,7 @@ public class ArithmeticExpressionEval {
     
     // Binary tree for representing an arithmetic expression
     // Subclasses for operators versus numbers
+    //can i make this expressoinTree an abstract class
     private static class ExpressionTree implements Comparable<ExpressionTree> {
 
         // To work with MyRobustLinkedList
