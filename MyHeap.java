@@ -18,7 +18,7 @@ public class MyHeap<E extends Comparable<E>>
      * @param Boolean that sets the heap: true is min, false is max.  
      */
     public MyHeap(boolean isMinHeap){
-        heap = (E[]) new Comparable[100]; 
+        heap = (E[]) new Comparable[1]; 
         this.last = 0;
         this.isMinHeap = isMinHeap;
     } 
@@ -29,6 +29,19 @@ public class MyHeap<E extends Comparable<E>>
      * @param Element to be Inserted in the Heap 
      */
     public void add(E element) {
+        
+        int arrSize = heap.length;
+        
+        if (last >= arrSize) {
+            E[] newHeap =  (E[]) new Comparable[(arrSize * 2)];
+            
+            for (int i = 0; i < arrSize; i++) {
+                newHeap[i] = heap[i];
+            }
+            
+            heap = newHeap; 
+        }
+        
         heap[last] = element;
         trickleUp(last);
         last++; 
@@ -37,7 +50,14 @@ public class MyHeap<E extends Comparable<E>>
     private void trickleUp(int childIndex) {
         if (!(childIndex <= 0)) {
             int parentIndex = (childIndex-1)/2;
-            if(heap[childIndex].compareTo(heap[parentIndex]) < 0) {
+            int compFactor;
+            if(isMinHeap) {
+                compFactor = 1;
+            } else {
+                compFactor = -1; 
+            }
+            
+            if(((heap[childIndex]).compareTo(heap[parentIndex]) * compFactor) < 0) {
                 E swap = heap[parentIndex];
                 heap[parentIndex] = heap[childIndex];
                 heap[childIndex] = swap;
@@ -70,8 +90,8 @@ public class MyHeap<E extends Comparable<E>>
         E top = getTop();
         
         //swap last to top
-        heap[0] = heap[last];
-        heap[last] = null;
+        heap[0] = heap[last-1];
+        heap[last-1] = null;
         last--;
 
         trickleDown(0); 
@@ -82,26 +102,35 @@ public class MyHeap<E extends Comparable<E>>
         int leftChild = 2 * parentIndex + 1;
         int rightChild = 2 * parentIndex + 2; 
 
-        if (heap[leftChild] != null) { // base case
+        int compFactor;
+        if(isMinHeap) {
+            compFactor = 1;
+        } else {
+            compFactor = -1; 
+        }
+    
+        if (heap.length >= leftChild && heap[leftChild] != null) { // base case
             
             //find the largest child element
-            int largerChild;
-            if (heap[rightChild] != null) {  
-                if (heap[leftChild].compareTo(heap[rightChild]) <= 0) {
-                    largerChild = leftChild; 
+            int priorityChild;
+            if (heap.length >= rightChild && heap[rightChild] != null) {  
+                if ((heap[leftChild].compareTo(heap[rightChild]) * compFactor) <= 0) {
+                    priorityChild = leftChild; 
                 } else {
-                    largerChild = rightChild;
+                    priorityChild = rightChild;
                 }
             } else {
-                largerChild = leftChild;
+                priorityChild = leftChild;
             } 
             
-            //swap with larger child
-            E swap = heap[largerChild]; 
-            heap[largerChild] = heap[parentIndex];
-            heap[parentIndex] = swap;
-            
-            trickleDown(largerChild);
+            //swap with priority child if higher priority  
+            if ((heap[parentIndex].compareTo(heap[priorityChild]) * compFactor) > 0) {
+                E swap = heap[priorityChild]; 
+                heap[priorityChild] = heap[parentIndex];
+                heap[parentIndex] = swap;
+                trickleDown(priorityChild);
+            }
+          
         }
         
     } 
@@ -262,7 +291,35 @@ public class MyHeap<E extends Comparable<E>>
         
         System.out.println("Heap " + test);
 
-
+        MyHeap<Integer> test2 = new MyHeap<Integer>(false); 
+        System.out.println("Max Heap:  " + test2);
+        System.out.println("Size " + test2.size());
+        
+        test2.add(3);
+        System.out.println("Heap " + test2);
+        System.out.println("Size " + test2.size());
+        test2.add(77);
+        System.out.println("Heap " + test2);
+        System.out.println("Size " + test2.size());
+        test2.add(1242);
+        System.out.println("Heap " + test2);
+        System.out.println("Size " + test2.size());
+        test2.add(2);
+        System.out.println("Heap " + test2);
+        System.out.println("Size " + test2.size());
+        test2.add(1);
+        System.out.println("Heap " + test2);
+        System.out.println("Size " + test2.size());
+        
+        System.out.println("Top Remove: " + test2.removeTop());
+        System.out.println("Heap " + test2);
+        System.out.println("Size " + test2.size());
+        
+        test2.add(55);
+        test2.add(26);
+        test2.add(33);
+        
+        System.out.println("Heap " + test2);
 
     } 
 }
