@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class MyHeap<E extends Comparable<E>>
 {
     private E[] heap; 
-    private int last; //keeps track of index
+    private int last; //keeps track of index and size
     private boolean isMinHeap;
     
     /**
@@ -61,13 +61,50 @@ public class MyHeap<E extends Comparable<E>>
     }
     
     /**
-     *Removes and returns top element (minimum or maximum) from heap.
+     * Removes and returns top element (minimum or maximum) from heap.
      * 
      * @return The top element (minimum or maximum) that was removed from heap. 
+     * @throws NoSuchElementException if Heap is Empty. 
      */
     public E removeTop(){
-        return null; //fix this
+        E top = getTop();
+        
+        //swap last to top
+        heap[0] = heap[last];
+        heap[last] = null;
+        last--;
+
+        trickleDown(0); 
+        return top;
     }
+    
+    private void trickleDown(int parentIndex) {
+        int leftChild = 2 * parentIndex + 1;
+        int rightChild = 2 * parentIndex + 2; 
+
+        if (heap[leftChild] != null) { // base case
+            
+            //find the largest child element
+            int largerChild;
+            if (heap[rightChild] != null) {  
+                if (heap[leftChild].compareTo(heap[rightChild]) <= 0) {
+                    largerChild = leftChild; 
+                } else {
+                    largerChild = rightChild;
+                }
+            } else {
+                largerChild = leftChild;
+            } 
+            
+            //swap with larger child
+            E swap = heap[largerChild]; 
+            heap[largerChild] = heap[parentIndex];
+            heap[parentIndex] = swap;
+            
+            trickleDown(largerChild);
+        }
+        
+    } 
     
     /**
      * Indicates whether heap is empty.
@@ -182,15 +219,16 @@ public class MyHeap<E extends Comparable<E>>
         }
     }
 
-    // build array of element strings
-    private void buildTreeLabels(String[] labels, int maxLabelWidth) {
-        for (int i = 0; i <= last; i++) {
+      // build array of element strings
+        private void buildTreeLabels(String[] labels, int maxLabelWidth) {
+        for (int i = 0; i <= last-1; i++) {
             labels[i] = heap[i].toString();
             if (labels[i].length() > maxLabelWidth) {
                 labels[i] = labels[i].substring(0, maxLabelWidth);
             }
         }
     }
+
 
     
     public static void main() {
@@ -201,22 +239,30 @@ public class MyHeap<E extends Comparable<E>>
         test.add(3);
         System.out.println("Heap " + test);
         System.out.println("Size " + test.size());
-        test.printTree(100); //doesn't work. throws an error. 
         test.add(77);
         System.out.println("Heap " + test);
         System.out.println("Size " + test.size());
-        test.printTree(100);
         test.add(1242);
         System.out.println("Heap " + test);
         System.out.println("Size " + test.size());
-        test.printTree(100);
         test.add(2);
         System.out.println("Heap " + test);
         System.out.println("Size " + test.size());
-        test.printTree(100);
         test.add(1);
         System.out.println("Heap " + test);
         System.out.println("Size " + test.size());
-        test.printTree(100);
+        
+        System.out.println("Top Remove: " + test.removeTop());
+        System.out.println("Heap " + test);
+        System.out.println("Size " + test.size());
+        
+        test.add(55);
+        test.add(26);
+        test.add(33);
+        
+        System.out.println("Heap " + test);
+
+
+
     } 
 }
