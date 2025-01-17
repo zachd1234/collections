@@ -164,7 +164,7 @@ public class MyHeap<E extends Comparable<E>>
             if(i == last - 1) {
                 heapStr += heap[i];
             } else {
-                heapStr += heap[i] + ",";  
+                heapStr += heap[i] + ", ";  
             }
         }
         return heapStr; 
@@ -261,65 +261,36 @@ public class MyHeap<E extends Comparable<E>>
 
     
     public static void main() {
-        MyHeap<Integer> test = new MyHeap<Integer>(true); 
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
-        
+        MyHeap<Integer> test = new MyHeap<Integer>(false);
+        System.out.println("Delete Testing: ");
+        test.add(50);
+        test.add(32);
+        test.add(20);
+        test.add(10);
+        test.add(5);
         test.add(3);
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
-        test.add(77);
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
-        test.add(1242);
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
-        test.add(2);
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
         test.add(1);
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
-        
-        System.out.println("Top Remove: " + test.removeTop());
-        System.out.println("Heap " + test);
-        System.out.println("Size " + test.size());
-        
-        test.add(55);
-        test.add(26);
-        test.add(33);
-        
-        System.out.println("Heap " + test);
-
-        MyHeap<Integer> test2 = new MyHeap<Integer>(false); 
-        System.out.println("Max Heap:  " + test2);
-        System.out.println("Size " + test2.size());
-        
-        test2.add(3);
-        System.out.println("Heap " + test2);
-        System.out.println("Size " + test2.size());
-        test2.add(77);
-        System.out.println("Heap " + test2);
-        System.out.println("Size " + test2.size());
-        test2.add(1242);
-        System.out.println("Heap " + test2);
-        System.out.println("Size " + test2.size());
-        test2.add(2);
-        System.out.println("Heap " + test2);
-        System.out.println("Size " + test2.size());
-        test2.add(1);
-        System.out.println("Heap " + test2);
-        System.out.println("Size " + test2.size());
-        
-        System.out.println("Top Remove: " + test2.removeTop());
-        System.out.println("Heap " + test2);
-        System.out.println("Size " + test2.size());
-        
-        test2.add(55);
-        test2.add(26);
-        test2.add(33);
-        
-        System.out.println("Heap " + test2);
+        test.add(100);
+        test.add(150);
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
+        System.out.println(test.removeTop());
+        test.printTree(3);
 
     } 
 }
