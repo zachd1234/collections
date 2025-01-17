@@ -87,6 +87,11 @@ public class MyHeap<E extends Comparable<E>>
      * @throws NoSuchElementException if Heap is Empty. 
      */
     public E removeTop(){
+        
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        
         E top = getTop();
         
         //swap last to top
@@ -109,11 +114,11 @@ public class MyHeap<E extends Comparable<E>>
             compFactor = -1; 
         }
     
-        if (heap.length >= leftChild && heap[leftChild] != null) { // base case
+        if (last > leftChild) { // base case
             
             //find the largest child element
             int priorityChild;
-            if (heap.length >= rightChild && heap[rightChild] != null) {  
+            if (last > rightChild) {  
                 if ((heap[leftChild].compareTo(heap[rightChild]) * compFactor) <= 0) {
                     priorityChild = leftChild; 
                 } else {

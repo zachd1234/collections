@@ -74,4 +74,12 @@ public class Applications
         }
         return temp.top(); 
     }
+    
+    /**
+     * Determines the lowest 20 numbers randomly generated and prints them in ascending order.
+     * 
+     */
+    public static void top20() {
+    
+    }
 }
