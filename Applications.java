@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
  import java.util.Arrays;
 /**
  * Write a description of class Applications here.
@@ -80,6 +82,16 @@ public class Applications
      * 
      */
     public static void top20() {
-    
+        MyHeap<Integer> heap = new MyHeap<Integer>(false);
+        for (int i = 0; i < 1000; i++) {
+            int ranNum = (int)(Math.random() * 1000);
+            if(heap.size() < 20) {
+                heap.add(ranNum);
+            } else {
+                heap.add(ranNum);
+                heap.removeTop();
+            }
+        }
+        System.out.println(heap);
     }
 }

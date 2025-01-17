@@ -297,5 +297,8 @@ public class MyHeap<E extends Comparable<E>>
         System.out.println(test.removeTop());
         test.printTree(3);
 
+        System.out.println(test.removeTop());
+        test.printTree(3);
+
     } 
 }
