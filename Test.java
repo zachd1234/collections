@@ -340,4 +340,19 @@ public class Test
         System.out.println(Applications.evalPostfix("2 4 6 + 3 * -"));
 
     }
+    
+    public static void testHashTable() {
+        MyHashTable test = new MyHashTable();
+        System.out.println(test.toString());
+        test.put("A", "a");
+        System.out.println(test.size());
+        System.out.println(test.toString());
+        test.put("B", "b");
+        System.out.println(test.size());
+        System.out.println(test.toString());
+        test.put("A", "aa");
+        test.remove("A");
+        System.out.println(test.size());
+        System.out.println(test.toString());
+    }
 }
