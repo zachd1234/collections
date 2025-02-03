@@ -62,6 +62,16 @@ public class ShowCharacter implements Comparable<ShowCharacter>  {
             }
         }  
     }
+    
+    /**
+     * Return key associated with ShowCharacter object.
+     * 
+     * @return firstName~lastName String of key
+     */
+    public String getKey() {
+        return firstName + "~" + lastName;
+    }
+    
     /**
      * Returns a string representing a ShowCharacter.
      * 

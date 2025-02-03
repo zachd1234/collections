@@ -6,16 +6,16 @@ import java.util.Arrays;
  * @author Zach Derhake
  * @version 1/29/25
  */
-public class MyHashTable
+public class MyHashTable<K,V>
 {
    
-   private Node[] arr; 
+   private Node<K,V>[] arr; 
    private int size;
    /**
     * Creates a new Hash Table Array with a length of 10
     */
    public MyHashTable(){
-       arr = new Node[10];
+       arr =  (Node<K,V>[]) new Node[10];
        size = 0;
    }
    
@@ -26,13 +26,13 @@ public class MyHashTable
     * @param value of key
     * @throws NullPointerException if key or value is null
     */
-   public void put(String key, String value) {
+   public void put(K key, V value) {
        if (key == null || value == null) {
             throw new NullPointerException();
        } else {
             int index = hash(key);
 
-            Node existingNode = searchBucket(index, key);
+            Node<K,V> existingNode = searchBucket(index, key);
             
             if(existingNode != null) {
                 existingNode.setValue(value); //deals with duplicates
@@ -57,11 +57,11 @@ public class MyHashTable
     * 
     * @param key value to search for in the array
     */
-   public String get(String key) {
+   public V get(K key) {
        if (key == null) {
            throw new NullPointerException(); 
        } else {
-           Node node = searchBucket(hash(key), key);
+           Node<K,V> node = searchBucket(hash(key), key);
            if (node == null) {
                return null; 
            } else {
@@ -77,13 +77,13 @@ public class MyHashTable
     * @return the key value that was removed, null if no element was removed
     * @throws NullPointerException when key is null
     */
-   public String remove(String key) {
+   public V remove(K key) {
        if (key == null) {
             throw new NullPointerException();
        } else {
            int index = hash(key);
            
-           Node oldNode = searchBucket(index, key);
+           Node<K,V> oldNode = searchBucket(index, key);
 
            if (oldNode == null) {
                return null; 
@@ -105,9 +105,9 @@ public class MyHashTable
        }
     }
    
-   private Node searchBucket(int bucket, String key){
+   private Node searchBucket(int bucket, K key){
        
-       Node curNode = arr[bucket];
+       Node<K,V> curNode = arr[bucket];
        
        while(curNode != null) {
            if (curNode.getKey().equals(key)) {
@@ -124,17 +124,19 @@ public class MyHashTable
    }
    
    private void removeFromBucket(int bucket, Node oldNode) {
+       Node<K,V> curNode = arr[bucket];
        if(arr[bucket] == oldNode) {
-           arr[bucket] = arr[bucket].getNext(); 
-       }
-       
-       Node curNode = arr[bucket];
+           arr[bucket] = arr[bucket].getNext();
+           curNode.clearNode();
+       } else {
    
-       while(curNode.getNext() != oldNode) {
-           curNode = curNode.getNext();
+           while(curNode.getNext() != oldNode) {
+               curNode = curNode.getNext();
+           }
+       
+           curNode.setNext(oldNode.getNext());
+           oldNode.clearNode();
        }
-       curNode.setNext(curNode.getNext().getNext());
-       oldNode.clearNode();
    }
     
    /**
@@ -150,7 +152,7 @@ public class MyHashTable
        return size == 0; 
    }
    
-   private int hash(String key) {
+   private int hash(K key) {
        return Math.abs(key.hashCode()) % arr.length;  
    }
    
@@ -163,13 +165,13 @@ public class MyHashTable
         return Arrays.toString(arr); 
    }
    
-   private class Node {
+   private class Node<K,V> {
        
-       private String key; 
-       private String value;
+       private K key; 
+       private V value;
        private Node next; 
        
-       private Node(String key, String value) {
+       private Node(K key, V value) {
            this.key = key;
            this.value = value;
            this.next = null;
@@ -181,11 +183,11 @@ public class MyHashTable
            this.next = null;
        }
        
-       private String getKey(){
+       private K getKey(){
            return key;
        }
        
-       private String getValue() {
+       private V getValue() {
            return value; 
        }
        
@@ -193,7 +195,7 @@ public class MyHashTable
            return next;
        }
        
-       private void setValue(String value) {
+       private void setValue(V value) {
            this.value = value; 
        }
        

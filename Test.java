@@ -342,7 +342,7 @@ public class Test
     }
     
     public static void testHashTable() {
-        MyHashTable test = new MyHashTable();
+        MyHashTable<String, String> test = new MyHashTable<String, String>();
         System.out.println(test.toString());
         test.put("A", "a");
         System.out.println(test.size());
@@ -354,5 +354,26 @@ public class Test
         test.remove("A");
         System.out.println(test.size());
         System.out.println(test.toString());
+
+        
+        ShowCharacter fred = new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed");
+        ShowCharacter fred1 = new ShowCharacter("Barney", "Rubble", "The Flintstones", "Mel Blanc");
+        ShowCharacter fred2 = new ShowCharacter("Betty", "Rubble", "The Flintstones", "Bea Benaderet");
+        ShowCharacter fred3 = new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed");
+        ShowCharacter fred4 = new ShowCharacter("Ross", "Geller", "Friends", "David Schwimmer");
+        ShowCharacter fred5 = new ShowCharacter("Phoebe", "Buffay", "Friends", "Lisa Kudrow");
+
+        MyHashTable<String, ShowCharacter> test2 = new MyHashTable<String, ShowCharacter>();
+        System.out.println(test2.toString());
+        test2.put(fred.getKey(), fred);
+        System.out.println(test2.size());
+        System.out.println(test2.toString());
+        test2.put(fred1.getKey(), fred1);
+        System.out.println(test2.size());
+        System.out.println(test2.toString());
+        test2.put(fred3.getKey(), fred3);
+        test2.remove(fred.getKey());
+        System.out.println(test2.size());
+        System.out.println(test2.toString());
     }
 }
