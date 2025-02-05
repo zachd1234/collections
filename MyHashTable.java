@@ -11,12 +11,15 @@ public class MyHashTable<K,V>
    
    private Node<K,V>[] arr; 
    private int size;
+   private double loadFactor; 
+   
    /**
     * Creates a new Hash Table Array with a length of 10
     */
    public MyHashTable(){
        arr =  (Node<K,V>[]) new Node[10];
        size = 0;
+       loadFactor = 0.7;
    }
    
    /**
@@ -39,16 +42,10 @@ public class MyHashTable<K,V>
             } else{
                 addToBucket(index, new Node(key, value));
                 size++;
+                if (size > loadFactor * arr.length) { //refactor hash table 
+                    expandHashTable(); 
+                }
             }
-            
-            //OLD IMPLEMENTATION
-            //if (arr[index] == null) { //adding a new value
-            ///    size++; 
-            //    arr[index] = new Node(key, value);
-            //} else {
-             //   arr[index].setValue(value);
-            //}
-            //} 
        }
    }
    
@@ -92,18 +89,27 @@ public class MyHashTable<K,V>
                size--;
                return oldNode.getValue();
            }
-           
-           // OLD IMPLEMENTATION 
-           //if(arr[index] == null) {
-               // return null; 
-           // } else {
-                // String removeValue = arr[index].getValue();
-                // arr[index] = null;
-                // size--;
-                // return removeValue;
-           // }
        }
     }
+    
+   private void expandHashTable() {
+       
+       Node<K,V>[] oldArr = arr;
+       arr = (Node<K,V>[]) new Node[oldArr.length*2];
+       
+       for (int i = 0; i < oldArr.length; i++) {
+           Node<K,V> curNode = oldArr[i];
+           if (curNode != null) {
+               while (curNode.getNext() != null) {
+                   Node<K,V> nextNode = curNode.getNext();
+                   int index = curNode.getHashCode() % arr.length;
+                   addToBucket(index, curNode);
+                   curNode = nextNode;
+               }
+               oldArr[i] = null;
+           }
+       }
+   }
    
    private Node searchBucket(int bucket, K key){
        
@@ -170,11 +176,13 @@ public class MyHashTable<K,V>
        private K key; 
        private V value;
        private Node next; 
+       private int hashCode;
        
        private Node(K key, V value) {
            this.key = key;
            this.value = value;
            this.next = null;
+           this.hashCode = Math.abs(key.hashCode());
        }
        
        private void clearNode() {
@@ -195,6 +203,10 @@ public class MyHashTable<K,V>
            return next;
        }
        
+       private int getHashCode() {
+           return hashCode; 
+       }
+       
        private void setValue(V value) {
            this.value = value; 
        }
@@ -208,6 +220,7 @@ public class MyHashTable<K,V>
            Node curNode = this;
            while(curNode.getNext() != null) {
                toPrint += "|" + curNode.getKey() + "->" + curNode.getValue();
+               curNode = curNode.getNext();
            } 
            return toPrint; //TODO need to iterate through pointers 
        }

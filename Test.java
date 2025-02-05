@@ -342,6 +342,8 @@ public class Test
     }
     
     public static void testHashTable() {
+        
+        System.out.println("TESTING WITH LETTERS");
         MyHashTable<String, String> test = new MyHashTable<String, String>();
         System.out.println(test.toString());
         test.put("A", "a");
@@ -355,7 +357,7 @@ public class Test
         System.out.println(test.size());
         System.out.println(test.toString());
 
-        
+        System.out.println("TESTING WITH CHARACTERS");
         ShowCharacter fred = new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed");
         ShowCharacter fred1 = new ShowCharacter("Barney", "Rubble", "The Flintstones", "Mel Blanc");
         ShowCharacter fred2 = new ShowCharacter("Betty", "Rubble", "The Flintstones", "Bea Benaderet");
@@ -371,9 +373,88 @@ public class Test
         test2.put(fred1.getKey(), fred1);
         System.out.println(test2.size());
         System.out.println(test2.toString());
-        test2.put(fred3.getKey(), fred3);
+        test2.put(fred5.getKey(), fred5);
         test2.remove(fred.getKey());
         System.out.println(test2.size());
         System.out.println(test2.toString());
+        
+        
+        MyHashTable<Integer, Integer> test3 = new MyHashTable<Integer, Integer>();
+        test3.put(1,5);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4,3);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(23,2);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());  
+        test3.put(42,1233);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4123123,3565);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(764,332);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4798,33);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(324,3432);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(854,43263);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4324623,37432);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(234674,3245);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(2344,389);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(82542,875343);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(849,3324662);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4869,23435);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4452,3345653);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4234323,34643);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(445676543,345637);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(487654,345678);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(21446,3589);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(1242,36437);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(3464364,3346346);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(47547,343268);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(432467,432535);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(46432634,3351271);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+
     }
 }
