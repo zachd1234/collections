@@ -481,8 +481,19 @@ public class Test
         Integer[] intTest2 = {10, 11, 12, 13, 10, 15, 16, 17};
         
         boolean noDup = Applications.containsDuplicate(intTest);
-        boolean dup = Applications.containsDuplicate(intTest);
+        boolean dup = Applications.containsDuplicate(intTest2);
         System.out.println("Array without duplicate " + noDup);
         System.out.println("Array with duplicate " + dup);
+        
+        System.out.println("TESTING SUBSET");
+        //Integer[] intTest3 = {10, 11, 12};
+        //Integer[] intTest4 = {10, 11, 12, 13, 10, 15, 16, 17};
+        //System.out.println(Applications.isSubset(intTest3, intTest4));
+        //System.out.println(Applications.isSubset(intTest4, intTest3));
+        
+        Integer[] intTest6 = {15, 11, 12};
+        Integer[] intTest5 = {10, 11, 12, 13, 14, 21, 16, 17};
+        System.out.println(Applications.isSubset(intTest5, intTest6));
+
     }
 }

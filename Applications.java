@@ -116,8 +116,41 @@ public class Applications
         } else {
             return false;
         }
-        //take arr size
-        //if hash table size != arr size 
-        //true ; false
+    }
+    
+    /**
+     *  Determines whether one array is the subset of the other (assuming no duplicates).
+     *  
+     *  @param arr1 one of the arrays to compare 
+     *  @param arr2 the other array to compare against
+     *  @return true is one array is the subset of another, false otherwise
+     */
+    public static <E>boolean isSubset(E[] arr1, E[] arr2) {
+        //hash table one array
+        //for every element in other array, 
+        //if other arr (passed as key) is not found return false
+        //return true at end
+        E[] mainArr;
+        E[] subArr;
+        if (arr1.length > arr2.length) {
+            mainArr = arr1;
+            subArr = arr2;
+        } else {
+            mainArr = arr2;
+            subArr = arr1;
+        }
+        
+        
+        MyHashTable<E,E> hash = new MyHashTable<E,E>(); 
+        for (int i = 0; i < mainArr.length; i++) {
+            hash.put(mainArr[i], mainArr[i]);
+        }
+        
+        for (int k = 0; k < subArr.length; k++) {
+            if(hash.get(subArr[k]) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }
