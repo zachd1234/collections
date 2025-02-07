@@ -101,11 +101,23 @@ public class Applications
      * @param arr array to evaluate the duplicates of.
      * @return true if the arr contains duplicates, false otherwise. 
      */
-    public boolean containsDuplicate(int[] arr) { //change to E[]. 
-        //go through. 
-        //remove. 
-        //then put. 
-        //evaluate the size change. 
-        return true; 
+    public static <E>boolean containsDuplicate(E[] arr) {
+        MyHashTable<E,E> hash = new MyHashTable<E,E>(); 
+        for (int i = 0; i < arr.length; i++) {
+            hash.put(arr[i], arr[i]);
+            System.out.println(hash);
+        }
+        
+        int arrSize = arr.length;
+        int hashSize = hash.size();
+        
+        if (arrSize != hashSize) {
+            return true;
+        } else {
+            return false;
+        }
+        //take arr size
+        //if hash table size != arr size 
+        //true ; false
     }
 }

@@ -475,4 +475,14 @@ public class Test
         System.out.println(test3.toString());
 
     }
+    
+    public static void testHashApplications() {
+        Integer[] intTest = {10, 11, 12, 13, 14, 15, 16, 17};
+        Integer[] intTest2 = {10, 11, 12, 13, 10, 15, 16, 17};
+        
+        boolean noDup = Applications.containsDuplicate(intTest);
+        boolean dup = Applications.containsDuplicate(intTest);
+        System.out.println("Array without duplicate " + noDup);
+        System.out.println("Array with duplicate " + dup);
+    }
 }

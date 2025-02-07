@@ -99,15 +99,13 @@ public class MyHashTable<K,V>
        
        for (int i = 0; i < oldArr.length; i++) {
            Node<K,V> curNode = oldArr[i];
-           if (curNode != null) {
-               while (curNode.getNext() != null) {
-                   Node<K,V> nextNode = curNode.getNext();
-                   int index = curNode.getHashCode() % arr.length;
-                   addToBucket(index, curNode);
-                   curNode = nextNode;
-               }
-               oldArr[i] = null;
+           while (curNode != null) {
+               Node<K,V> nextNode = curNode.getNext();
+               int index = curNode.getHashCode() % arr.length;
+               addToBucket(index, curNode);
+               curNode = nextNode;
            }
+           oldArr[i] = null;
        }
    }
    
