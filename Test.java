@@ -356,6 +356,24 @@ public class Test
         test.remove("A");
         System.out.println(test.size());
         System.out.println(test.toString());
+        
+        System.out.println("TESTING THIS WEIRD ERROR");
+        MyHashTable<String, String> test5 = new MyHashTable<String, String>();
+
+        test5.put("A", "a");
+        test5.put("AA", "aa");
+        test5.put("AAA","aaa");
+        test5.put("AAAA","aaaa");
+        test5.put("AAAAA","aaaaa");
+        System.out.println(test5.size());
+        System.out.println(test5.toString());
+        test5.put("A", "aa");
+        test5.put("AA", "aaa");
+        test5.put("AAA","aaaa");
+        test5.put("AAAA","aaaaa");
+        test5.put("AAAAA","aaaaaa");
+        System.out.println(test5.size());
+        System.out.println(test5.toString());
 
         System.out.println("TESTING WITH CHARACTERS");
         ShowCharacter fred = new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed");

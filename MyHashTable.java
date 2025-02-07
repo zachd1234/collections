@@ -219,8 +219,8 @@ public class MyHashTable<K,V>
            String toPrint = key + "->" + value;
            Node curNode = this;
            while(curNode.getNext() != null) {
-               toPrint += "|" + curNode.getKey() + "->" + curNode.getValue();
                curNode = curNode.getNext();
+               toPrint += "|" + curNode.getKey() + "->" + curNode.getValue();
            } 
            return toPrint; //TODO need to iterate through pointers 
        }

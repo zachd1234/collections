@@ -94,4 +94,18 @@ public class Applications
         }
         System.out.println(heap);
     }
+    
+    /**
+     * Determines whether array contains duplicates.
+     * 
+     * @param arr array to evaluate the duplicates of.
+     * @return true if the arr contains duplicates, false otherwise. 
+     */
+    public boolean containsDuplicate(int[] arr) { //change to E[]. 
+        //go through. 
+        //remove. 
+        //then put. 
+        //evaluate the size change. 
+        return true; 
+    }
 }
