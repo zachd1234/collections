@@ -496,4 +496,27 @@ public class Test
         System.out.println(Applications.isSubset(intTest5, intTest6));
 
     }
+    
+    public static void testGraphs() {
+        MyGraph graph = new MyGraph();
+        System.out.println(graph);
+        graph.addVertex("James");
+        graph.addVertex("Leo");
+        graph.addVertex("Chloe");
+        graph.addVertex("Nathan");
+        graph.addVertex("Saba");
+        graph.addVertex("Gamma");
+        graph.addVertex("Lola");
+        graph.addVertex("Joe");
+        graph.addVertex("Mike");
+        System.out.println(graph);
+        graph.addEdge("Chloe", "Saba");
+        graph.addEdge("Chloe", "Leo");
+        graph.addEdge("Leo", "Joe");
+        //graph.addEdge("Chloe", "Saba");
+        graph.addEdge("Gamma", "Saba");
+        graph.addEdge("Joe", "Gamma");
+        System.out.println(graph);
+
+    }
 }

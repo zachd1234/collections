@@ -165,7 +165,7 @@ public class MyHashTable<K,V>
     * 
     * @return the hash table array in comma seperated order 
     */
-   public String toString(){
+   public String toString() {
         return Arrays.toString(arr); 
    }
    
