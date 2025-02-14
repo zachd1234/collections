@@ -342,7 +342,9 @@ public class Test
     }
     
     public static void testHashTable() {
-        MyHashTable test = new MyHashTable();
+        
+        System.out.println("TESTING WITH LETTERS");
+        MyHashTable<String, String> test = new MyHashTable<String, String>();
         System.out.println(test.toString());
         test.put("A", "a");
         System.out.println(test.size());
@@ -354,5 +356,167 @@ public class Test
         test.remove("A");
         System.out.println(test.size());
         System.out.println(test.toString());
+        
+        System.out.println("TESTING THIS WEIRD ERROR");
+        MyHashTable<String, String> test5 = new MyHashTable<String, String>();
+
+        test5.put("A", "a");
+        test5.put("AA", "aa");
+        test5.put("AAA","aaa");
+        test5.put("AAAA","aaaa");
+        test5.put("AAAAA","aaaaa");
+        System.out.println(test5.size());
+        System.out.println(test5.toString());
+        test5.put("A", "aa");
+        test5.put("AA", "aaa");
+        test5.put("AAA","aaaa");
+        test5.put("AAAA","aaaaa");
+        test5.put("AAAAA","aaaaaa");
+        System.out.println(test5.size());
+        System.out.println(test5.toString());
+
+        System.out.println("TESTING WITH CHARACTERS");
+        ShowCharacter fred = new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed");
+        ShowCharacter fred1 = new ShowCharacter("Barney", "Rubble", "The Flintstones", "Mel Blanc");
+        ShowCharacter fred2 = new ShowCharacter("Betty", "Rubble", "The Flintstones", "Bea Benaderet");
+        ShowCharacter fred3 = new ShowCharacter("Fred", "Flintstone", "The Flintstones", "Alan Reed");
+        ShowCharacter fred4 = new ShowCharacter("Ross", "Geller", "Friends", "David Schwimmer");
+        ShowCharacter fred5 = new ShowCharacter("Phoebe", "Buffay", "Friends", "Lisa Kudrow");
+
+        MyHashTable<String, ShowCharacter> test2 = new MyHashTable<String, ShowCharacter>();
+        System.out.println(test2.toString());
+        test2.put(fred.getKey(), fred);
+        System.out.println(test2.size());
+        System.out.println(test2.toString());
+        test2.put(fred1.getKey(), fred1);
+        System.out.println(test2.size());
+        System.out.println(test2.toString());
+        test2.put(fred5.getKey(), fred5);
+        test2.remove(fred.getKey());
+        System.out.println(test2.size());
+        System.out.println(test2.toString());
+        
+        
+        MyHashTable<Integer, Integer> test3 = new MyHashTable<Integer, Integer>();
+        test3.put(1,5);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4,3);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(23,2);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());  
+        test3.put(42,1233);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4123123,3565);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(764,332);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4798,33);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(324,3432);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(854,43263);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4324623,37432);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(234674,3245);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(2344,389);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(82542,875343);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(849,3324662);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4869,23435);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4452,3345653);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(4234323,34643);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(445676543,345637);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(487654,345678);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(21446,3589);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(1242,36437);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(3464364,3346346);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(47547,343268);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(432467,432535);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+        test3.put(46432634,3351271);
+        System.out.println(test3.size());
+        System.out.println(test3.toString());
+
+    }
+    
+    public static void testHashApplications() {
+        Integer[] intTest = {10, 11, 12, 13, 14, 15, 16, 17};
+        Integer[] intTest2 = {10, 11, 12, 13, 10, 15, 16, 17};
+        
+        boolean noDup = Applications.containsDuplicate(intTest);
+        boolean dup = Applications.containsDuplicate(intTest2);
+        System.out.println("Array without duplicate " + noDup);
+        System.out.println("Array with duplicate " + dup);
+        
+        System.out.println("TESTING SUBSET");
+        //Integer[] intTest3 = {10, 11, 12};
+        //Integer[] intTest4 = {10, 11, 12, 13, 10, 15, 16, 17};
+        //System.out.println(Applications.isSubset(intTest3, intTest4));
+        //System.out.println(Applications.isSubset(intTest4, intTest3));
+        
+        Integer[] intTest6 = {15, 11, 12};
+        Integer[] intTest5 = {10, 11, 12, 13, 14, 21, 16, 17};
+        System.out.println(Applications.isSubset(intTest5, intTest6));
+
+    }
+    
+    public static void testGraphs() {
+        MyGraph graph = new MyGraph();
+        System.out.println(graph);
+        graph.addVertex("James");
+        graph.addVertex("Leo");
+        graph.addVertex("Chloe");
+        graph.addVertex("Nathan");
+        graph.addVertex("Saba");
+        graph.addVertex("Gamma");
+        graph.addVertex("Lola");
+        graph.addVertex("Joe");
+        graph.addVertex("Mike");
+        System.out.println(graph);
+        graph.addEdge("Chloe", "Saba");
+        graph.addEdge("Chloe", "Leo");
+        graph.addEdge("Leo", "Joe");
+        //graph.addEdge("Chloe", "Saba");
+        graph.addEdge("Gamma", "Saba");
+        graph.addEdge("Joe", "Gamma");
+        System.out.println(graph);
+
     }
 }
