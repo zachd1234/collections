@@ -92,6 +92,11 @@ public class Applications
                 heap.removeTop();
             }
         }
-        System.out.println(heap);
+        MyStackLL<Integer> stack = new MyStackLL<Integer>();
+        for (int k = 0; k < 20; k++) {
+            stack.push(heap.removeTop());
+        }
+        
+        System.out.println(stack);
     }
 }
