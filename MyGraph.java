@@ -83,12 +83,37 @@ public class MyGraph
     }
     
     /**
+     * Performs a breadth-first traversal of the graph.
+     * 
+     * @param fromLabel - start vertex for the traversal
+     * @returns list of labels in traversal order
+     * @throws NullPointerException - when label is null
+     * @throws NoSuchElementException - when vertex does not exist
+     */
+    public ArrayList <String > breadthFirstTraversal(String fromLabel) {
+        if (fromLabel == null) {
+            throw new NullPointerException();
+        } else {
+            //ensure fromLabel vertex exists
+            Vertex fromVertex = nodeMap.get(fromLabel);
+            if (fromVertex == null) {
+                throw new NoSuchElementException();
+            } else {
+                ArrayList <String > visitChecklist = new ArrayList<String>();
+            
+                return visitChecklist;
+            }
+        }
+    }
+    
+    
+    /**
      * Returns hash table of vertices as a string for testing purposes.
      * 
      * @overrides toString in class Object
      * @returns vertices table as a string
      */
-    public String toString(){
+    public String toString() {
         return nodeMap.toString();
     }
     
@@ -113,8 +138,24 @@ public class MyGraph
         public void depthFirstTraversal(ArrayList<String > visitChecklist){
             visitChecklist.add(label);
             for (Vertex adj : adjVerticies) {
-                if (visitChecklist.contains(label) == false) {
-                    depthFirstTraversal(visitChecklist);
+                if (visitChecklist.contains(adj.label) == false) {
+                    adj.depthFirstTraversal(visitChecklist);
+                }
+            }
+        }
+        
+        public void breadthFirstTraversal(ArrayList<String > visitChecklist) {
+            MyQueueLL<Vertex> queue = new MyQueueLL<Vertex>();
+            queue.enqueue(this);
+            
+            while(!queue.isEmpty()) {
+                Vertex curVertex = queue.dequeue();
+                visitChecklist.add(curVertex.label);
+                
+                for (Vertex adj : curVertex.adjVerticies) {
+                    if (visitChecklist.contains(adj.label) == false) {
+                        queue.enqueue(adj);
+                    }
                 }
             }
         }
