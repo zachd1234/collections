@@ -512,11 +512,18 @@ public class Test
         System.out.println(graph);
         graph.addEdge("Chloe", "Saba");
         graph.addEdge("Chloe", "Leo");
-        graph.addEdge("Leo", "Joe");
+        graph.addEdge("Joe", "Leo");
         //graph.addEdge("Chloe", "Saba");
         graph.addEdge("Gamma", "Saba");
         graph.addEdge("Joe", "Gamma");
         System.out.println(graph);
-
-    }
+        //need to test searches 
+        System.out.println("Depth: ");
+        System.out.println(graph.depthFirstTraversal("Gamma"));
+        System.out.println(graph.depthFirstTraversal("Chloe"));
+        System.out.println(graph.depthFirstTraversal("Leo"));
+        System.out.println("Breadth:");
+        System.out.println(graph.breadthFirstTraversal("Gamma"));
+        System.out.println(graph.breadthFirstTraversal("Chloe"));
+        System.out.println(graph.breadthFirstTraversal("Leo"));    }
 }

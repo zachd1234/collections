@@ -99,8 +99,8 @@ public class MyGraph
             if (fromVertex == null) {
                 throw new NoSuchElementException();
             } else {
-                ArrayList <String > visitChecklist = new ArrayList<String>();
-            
+                ArrayList<String> visitChecklist = new ArrayList<String>();
+                fromVertex.breadthFirstTraversal(visitChecklist);
                 return visitChecklist;
             }
         }
@@ -135,7 +135,7 @@ public class MyGraph
             }
         }
         
-        public void depthFirstTraversal(ArrayList<String > visitChecklist){
+        public void depthFirstTraversal(ArrayList<String> visitChecklist){
             visitChecklist.add(label);
             for (Vertex adj : adjVerticies) {
                 if (visitChecklist.contains(adj.label) == false) {
@@ -144,16 +144,19 @@ public class MyGraph
             }
         }
         
-        public void breadthFirstTraversal(ArrayList<String > visitChecklist) {
+        public void breadthFirstTraversal(ArrayList<String> visitChecklist) {
             MyQueueLL<Vertex> queue = new MyQueueLL<Vertex>();
             queue.enqueue(this);
             
             while(!queue.isEmpty()) {
                 Vertex curVertex = queue.dequeue();
-                visitChecklist.add(curVertex.label);
-                
+                System.out.println(curVertex.label);
+                visitChecklist.add(curVertex.label); //assumes everything in queue is not visited
                 for (Vertex adj : curVertex.adjVerticies) {
-                    if (visitChecklist.contains(adj.label) == false) {
+                    System.out.println("Canidate " + adj.label);
+                    if (!visitChecklist.contains(adj.label)) {
+                        System.out.println(adj.label + " from " + curVertex.label);
+        
                         queue.enqueue(adj);
                     }
                 }
