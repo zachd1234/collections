@@ -49,9 +49,8 @@ public class MyGraph
                 throw new NoSuchElementException();
             } else {
                 boolean toVertexResult = toVertex.addAdjVertex(fromVertex);
-                boolean fromVertexResult = fromVertex.addAdjVertex(toVertex);
                 
-                if (toVertexResult == false || fromVertexResult == false) {
+                if (toVertexResult == false) {
                     throw new IllegalArgumentException(); //edge is a duplicate
                 }
             }
@@ -100,12 +99,137 @@ public class MyGraph
                 throw new NoSuchElementException();
             } else {
                 ArrayList<String> visitChecklist = new ArrayList<String>();
-                fromVertex.breadthFirstTraversal(visitChecklist);
+                breadthFirstHelper(visitChecklist, fromVertex);
                 return visitChecklist;
             }
         }
     }
     
+    /**
+     * Finds the shortest number of edges between fromLabel and toLabel. Utilizes a breadth-first traversal.
+     * 
+     * @param fromLabel - label of from vertex
+     * @param toLabel - label of to vertex
+     * @returns distance from fromLabel to toLabel, -1 if from vertex and to vertex are not connected
+     * @throws NullPointerException - when either label is null
+     * @throws NoSuchElementException - when either vertex does not exist
+     */
+    public int distance(String fromLabel,String toLabel) {
+       if (fromLabel == null || toLabel == null) {
+            throw new NullPointerException(); 
+        } else {
+            Vertex fromVertex = nodeMap.get(fromLabel);
+            Vertex toVertex = nodeMap.get(toLabel);
+            if (fromVertex == null || toVertex == null) {
+                throw new NoSuchElementException();
+            } else {
+                
+                if (toLabel.equals(fromLabel)) {
+                    return 0; 
+                } else {
+                    
+                    ArrayList<String> visitChecklist = new ArrayList<String>();
+                    MyQueueLL<TraversalNode> queue = new MyQueueLL<TraversalNode>();
+                    queue.enqueue(new TraversalNode(fromLabel, 0));
+                    visitChecklist.add(fromVertex.label);
+                
+                    while (!queue.isEmpty()) {
+                        TraversalNode curNode = queue.dequeue();
+                        Vertex curVertex = nodeMap.get(curNode.getLabel());
+                        for (Vertex adj : curVertex.adjVerticies) {
+                            if (!visitChecklist.contains(adj.label)) {
+                                int curDistance = curNode.getDistance();
+                                if (adj.label.equals(toLabel)) { 
+                                    return curDistance + 1;  //we found it 
+                                } else {
+                                    visitChecklist.add(adj.label);
+                                    queue.enqueue(new TraversalNode(adj.label, curDistance + 1));
+                                }
+                            }
+                        }
+                    }
+                    return -1; //could not find a path
+                }
+            }
+        }
+    }
+    
+    /**
+     * Finds the shortest path from fromLabel to toLabel. Utilizes a breadth-first traversal.
+     * 
+     * @param fromLabel - label of from vertex
+     * @param toLabel - label of to vertex
+     * @returns list of vertex labels for path from fromLabel to toLabel, null if from vertex and to vertex are not connected
+     * @throws NullPointerException - when label is null
+     * @throws NoSuchElementException - when vertex does not exist
+     */
+    public ArrayList <String > shortestPath(String fromLabel,String toLabel) {
+         if (fromLabel == null || toLabel == null) {
+            throw new NullPointerException(); 
+        } else {
+            Vertex fromVertex = nodeMap.get(fromLabel);
+            Vertex toVertex = nodeMap.get(toLabel);
+            if (fromVertex == null || toVertex == null) {
+                throw new NoSuchElementException();
+            } else {
+                if (toLabel.equals(fromLabel)) {
+                    ArrayList<String> pathArr = new ArrayList<String>();
+                    pathArr.add(fromLabel);
+                    return pathArr;
+                } else {
+                    MyHashTable<String,TraversalNode> visitChecklist = new  MyHashTable<String,TraversalNode>();
+                    MyQueueLL<TraversalNode> queue = new MyQueueLL<TraversalNode>();
+                    TraversalNode fromNode = new TraversalNode(fromLabel, null);
+                    queue.enqueue(fromNode);
+                    visitChecklist.put(fromVertex.label, fromNode); 
+                    
+                    while (!queue.isEmpty()) {
+                        TraversalNode curNode = queue.dequeue();
+                        Vertex curVertex = nodeMap.get(curNode.getLabel());
+                        for (Vertex adj : curVertex.adjVerticies) {
+                            if (visitChecklist.get(adj.label) == null) {
+                                if (adj.label.equals(toLabel)) { //we found it 
+                                    ArrayList<String> pathArr = new ArrayList<String>();
+                                    TraversalNode nodeInPath = new TraversalNode(adj.label,curNode.getLabel());
+                                    while (nodeInPath.getPreviousLabel() != null) {
+                                        pathArr.add(nodeInPath.getLabel());
+                                        nodeInPath = visitChecklist.get(nodeInPath.getPreviousLabel());
+                                    }
+                                    return pathArr;
+                                }
+                                
+                                TraversalNode adjNode = new TraversalNode(adj.label, curNode.getLabel());
+                                visitChecklist.put(adj.label, adjNode);
+                                queue.enqueue(adjNode);
+                            }
+                        }
+                    }
+                    return null;
+                }
+            }
+        }
+    }
+    
+    private void breadthFirstHelper(ArrayList<String> visitChecklist, Vertex fromVertex) {
+            MyQueueLL<Vertex> queue = new MyQueueLL<Vertex>();
+            queue.enqueue(fromVertex);
+            visitChecklist.add(fromVertex.label);
+
+            
+            while(!queue.isEmpty()) {
+                Vertex curVertex = queue.dequeue();
+                System.out.println(curVertex.label);
+                
+                for (Vertex adj : curVertex.adjVerticies) {
+                    System.out.println("Canidate " + adj.label);
+                    if (!visitChecklist.contains(adj.label)) {
+                        System.out.println(adj.label + " from " + curVertex.label);
+                        visitChecklist.add(adj.label);
+                        queue.enqueue(adj);
+                    }
+                }
+            }
+        }
     
     /**
      * Returns hash table of vertices as a string for testing purposes.
@@ -116,6 +240,7 @@ public class MyGraph
     public String toString() {
         return nodeMap.toString();
     }
+
     
     private class Vertex {
         private String label;
@@ -143,25 +268,7 @@ public class MyGraph
                 }
             }
         }
-        
-        public void breadthFirstTraversal(ArrayList<String> visitChecklist) {
-            MyQueueLL<Vertex> queue = new MyQueueLL<Vertex>();
-            queue.enqueue(this);
-            
-            while(!queue.isEmpty()) {
-                Vertex curVertex = queue.dequeue();
-                System.out.println(curVertex.label);
-                visitChecklist.add(curVertex.label); //assumes everything in queue is not visited
-                for (Vertex adj : curVertex.adjVerticies) {
-                    System.out.println("Canidate " + adj.label);
-                    if (!visitChecklist.contains(adj.label)) {
-                        System.out.println(adj.label + " from " + curVertex.label);
-        
-                        queue.enqueue(adj);
-                    }
-                }
-            }
-        }
+    
         
         public String getLabel(){
             return label;
@@ -173,6 +280,36 @@ public class MyGraph
                 adjVerticiesStr += "[" + vertex.label + "]";
             }
             return label + ":" + adjVerticiesStr;
+        }
+    }
+    
+    private class TraversalNode { 
+        private int distance;
+        private String label;
+        private String previousLabel;
+    
+        public TraversalNode(String label,int distance) {
+            this.label = label;
+            this.distance = distance;
+            this.previousLabel = null;
+        }
+        
+         public TraversalNode(String label,String previousLabel) {
+            this.label = label;
+            this.previousLabel = previousLabel;
+            distance = -1;
+        }
+        
+        public String getPreviousLabel() {
+            return previousLabel;
+        }
+        
+        public String getLabel() {
+            return label;
+        }
+        
+        public int getDistance() {
+            return distance;
         }
     }
 }
