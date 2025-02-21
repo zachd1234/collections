@@ -75,7 +75,7 @@ public class MyGraph
                 throw new NoSuchElementException();
             } else {
                 ArrayList <String > visitChecklist = new ArrayList<String>();
-                fromVertex.depthFirstTraversal(visitChecklist);
+                depthFirstTraversal(visitChecklist, fromVertex);
                 return visitChecklist;
             }
         }
@@ -123,7 +123,6 @@ public class MyGraph
             if (fromVertex == null || toVertex == null) {
                 throw new NoSuchElementException();
             } else {
-                
                 if (toLabel.equals(fromLabel)) {
                     return 0; 
                 } else {
@@ -131,18 +130,17 @@ public class MyGraph
                     ArrayList<String> visitChecklist = new ArrayList<String>();
                     MyQueueLL<TraversalNode> queue = new MyQueueLL<TraversalNode>();
                     queue.enqueue(new TraversalNode(fromLabel, 0));
-                    visitChecklist.add(fromVertex.label);
-                
+                    
                     while (!queue.isEmpty()) {
                         TraversalNode curNode = queue.dequeue();
                         Vertex curVertex = nodeMap.get(curNode.getLabel());
-                        for (Vertex adj : curVertex.adjVerticies) {
-                            if (!visitChecklist.contains(adj.label)) {
+                        if (!visitChecklist.contains(curVertex.label)){
+                            visitChecklist.add(curVertex.label);
+                            for (Vertex adj : curVertex.adjVerticies) {
                                 int curDistance = curNode.getDistance();
                                 if (adj.label.equals(toLabel)) { 
                                     return curDistance + 1;  //we found it 
                                 } else {
-                                    visitChecklist.add(adj.label);
                                     queue.enqueue(new TraversalNode(adj.label, curDistance + 1));
                                 }
                             }
@@ -181,31 +179,33 @@ public class MyGraph
                     MyQueueLL<TraversalNode> queue = new MyQueueLL<TraversalNode>();
                     TraversalNode fromNode = new TraversalNode(fromLabel, null);
                     queue.enqueue(fromNode);
-                    visitChecklist.put(fromVertex.label, fromNode); 
                     
                     while (!queue.isEmpty()) {
                         TraversalNode curNode = queue.dequeue();
                         Vertex curVertex = nodeMap.get(curNode.getLabel());
-                        for (Vertex adj : curVertex.adjVerticies) {
-                            if (visitChecklist.get(adj.label) == null) {
+                        if (visitChecklist.get(curVertex.label) == null) {
+                            visitChecklist.put(curVertex.label, curNode);
+                            System.out.println("Visted Checklist: " + visitChecklist);
+                            for (Vertex adj : curVertex.adjVerticies) {
+                                System.out.println(curVertex.label + " Adj Verticies " + curVertex.adjVerticies);
                                 if (adj.label.equals(toLabel)) { //we found it 
                                     ArrayList<String> pathArr = new ArrayList<String>();
-                                    TraversalNode nodeInPath = new TraversalNode(adj.label,curNode.getLabel());
+                                    TraversalNode nodeInPath = new TraversalNode(toLabel, curNode.getLabel());
                                     while (nodeInPath.getPreviousLabel() != null) {
-                                        pathArr.add(nodeInPath.getLabel());
+                                        pathArr.add(0, nodeInPath.getLabel());
                                         nodeInPath = visitChecklist.get(nodeInPath.getPreviousLabel());
+                                        System.out.println(nodeInPath.getLabel() + " " + nodeInPath.getPreviousLabel());
                                     }
+                                    pathArr.add(0, fromLabel);
                                     return pathArr;
                                 }
-                                
                                 TraversalNode adjNode = new TraversalNode(adj.label, curNode.getLabel());
-                                visitChecklist.put(adj.label, adjNode);
                                 queue.enqueue(adjNode);
                             }
                         }
                     }
                     return null;
-                }
+                } 
             }
         }
     }
@@ -213,24 +213,28 @@ public class MyGraph
     private void breadthFirstHelper(ArrayList<String> visitChecklist, Vertex fromVertex) {
             MyQueueLL<Vertex> queue = new MyQueueLL<Vertex>();
             queue.enqueue(fromVertex);
-            visitChecklist.add(fromVertex.label);
-
             
             while(!queue.isEmpty()) {
                 Vertex curVertex = queue.dequeue();
-                System.out.println(curVertex.label);
                 
-                for (Vertex adj : curVertex.adjVerticies) {
-                    System.out.println("Canidate " + adj.label);
-                    if (!visitChecklist.contains(adj.label)) {
-                        System.out.println(adj.label + " from " + curVertex.label);
-                        visitChecklist.add(adj.label);
+                if (!visitChecklist.contains(curVertex)) {
+                    visitChecklist.add(curVertex.label);
+                    for (Vertex adj : curVertex.adjVerticies) {
                         queue.enqueue(adj);
                     }
                 }
             }
         }
-    
+
+    private void depthFirstTraversal(ArrayList<String> visitChecklist, Vertex curVertex){
+        visitChecklist.add(curVertex.label);
+        for (Vertex adj : curVertex.adjVerticies) {
+            if (visitChecklist.contains(adj.label) == false) {
+                depthFirstTraversal(visitChecklist, adj);
+            }
+        }
+    }
+
     /**
      * Returns hash table of vertices as a string for testing purposes.
      * 
@@ -260,15 +264,7 @@ public class MyGraph
             }
         }
         
-        public void depthFirstTraversal(ArrayList<String> visitChecklist){
-            visitChecklist.add(label);
-            for (Vertex adj : adjVerticies) {
-                if (visitChecklist.contains(adj.label) == false) {
-                    adj.depthFirstTraversal(visitChecklist);
-                }
-            }
-        }
-    
+            
         
         public String getLabel(){
             return label;

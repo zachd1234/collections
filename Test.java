@@ -525,5 +525,12 @@ public class Test
         System.out.println("Breadth:");
         System.out.println(graph.breadthFirstTraversal("Gamma"));
         System.out.println(graph.breadthFirstTraversal("Chloe"));
-        System.out.println(graph.breadthFirstTraversal("Leo"));    }
+        System.out.println(graph.breadthFirstTraversal("Leo"));
+        
+        System.out.println("test shortest path");
+        
+        System.out.println(graph.shortestPath("Leo", "Chloe"));
+    }
+        
+        
 }
