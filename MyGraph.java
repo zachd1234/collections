@@ -217,7 +217,7 @@ public class MyGraph
             while(!queue.isEmpty()) {
                 Vertex curVertex = queue.dequeue();
                 
-                if (!visitChecklist.contains(curVertex)) {
+                if (!visitChecklist.contains(curVertex.label)) {
                     visitChecklist.add(curVertex.label);
                     for (Vertex adj : curVertex.adjVerticies) {
                         queue.enqueue(adj);
