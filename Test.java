@@ -530,6 +530,8 @@ public class Test
         System.out.println("test shortest path");
         
         System.out.println(graph.shortestPath("Leo", "Chloe"));
+        System.out.println(graph.distance("Leo", "Chloe"));
+
     }
         
         
