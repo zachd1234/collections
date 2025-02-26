@@ -534,5 +534,24 @@ public class Test
 
     }
         
+    public static void testWeightedGraph() {
+        MyWeightedGraph test = new MyWeightedGraph();
+        test.addVertex("Denver");
+        test.addVertex("El Paso");
+        test.addVertex("Chicago");
+        test.addVertex("Atlanta");
+        test.addVertex("Boston");
+        System.out.println(test);
+        test.addEdge("Denver", "El Paso", 140);
+        test.addEdge("Atlanta", "Denver", 160);
+        test.addEdge("Chicago", "El Paso", 80);
+        test.addEdge("Denver", "Chicago", 40);
+        test.addEdge("Atlanta", "Boston", 100);
+        test.addEdge("Boston", "Chicago", 120);
+        test.addEdge("Boston", "Denver", 180);
+        test.addEdge("El Paso", "Boston", 100);
+        System.out.println(test);
         
+    
+    }
 }
