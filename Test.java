@@ -552,6 +552,7 @@ public class Test
         test.addEdge("El Paso", "Boston", 100);
         System.out.println(test);
         
-    
+        System.out.println("Dykstra's Test");
+        System.out.println(test.runDijkstra("Atlanta"));
     }
 }

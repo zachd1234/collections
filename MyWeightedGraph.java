@@ -1,3 +1,4 @@
+//34567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -72,9 +73,20 @@ public class MyWeightedGraph
      */
     public MyHashTable<String, MyWeightedGraph.TraversalNode> runDijkstra(String fromLabel) {
         MyHashTable<String, MyWeightedGraph.TraversalNode> visitedList = new MyHashTable<String, MyWeightedGraph.TraversalNode>();
-        MyQueueLL<TraversalNode> queue = new MyQueueLL<TraversalNode>();
-        queue.enqueue(new TraversalNode(fromLabel, fromLabel, 0));
+        MyHeap<TraversalNode> heap = new MyHeap<TraversalNode>(true); 
         
+        heap.add(new TraversalNode(fromLabel, fromLabel, 0));
+        while (!heap.isEmpty()) { //should be a heap
+            TraversalNode curNode = heap.removeTop();
+            Vertex curVertex = vertexMap.get(curNode.getLabel());
+            if (visitedList.get(curNode.getLabel()) == null) {
+                visitedList.put(curNode.getLabel(), curNode);
+                for (Edge adj : curVertex.adjEdges) {
+                    heap.add(new TraversalNode(adj.toVertex().getLabel(), curNode.getLabel(), curNode.getWeight() + adj.getWeight()));
+                }
+            }
+        }
+        return visitedList;
     }
     
     /**
@@ -114,7 +126,7 @@ public class MyWeightedGraph
         }
     }
     
-    private class TraversalNode { 
+    private class TraversalNode implements Comparable<TraversalNode> { 
         private String label;
         private String previousLabel;
         private double weight; 
@@ -143,6 +155,27 @@ public class MyWeightedGraph
         
         public void setPreviousLabel(String newPreviousLabel) {
             previousLabel = newPreviousLabel;
+        }
+        
+        /**
+         * Returns a value <0 if this is less than other; returns zero if this is
+         * equal to other; returns a value >0 if this is greater than other
+         */
+        @Override
+        public int compareTo(TraversalNode other) {
+           double otherWeight = other.getWeight();
+           double thisWeight = this.getWeight();
+           if (thisWeight > otherWeight) {
+               return 1; 
+           } else if (otherWeight > thisWeight) {
+               return -1;  
+           } else {
+               return 0; 
+           }
+        }
+        
+        public String toString() {
+            return label + "~" + weight + "~" + previousLabel; 
         }
     }
     

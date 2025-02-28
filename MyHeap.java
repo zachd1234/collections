@@ -43,8 +43,8 @@ public class MyHeap<E extends Comparable<E>>
         }
         
         heap[last] = element;
-        last++; 
         trickleUp(last);
+        last++; 
     }
     
     private void trickleUp(int childIndex) {
