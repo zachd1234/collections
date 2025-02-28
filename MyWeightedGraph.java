@@ -99,7 +99,69 @@ public class MyWeightedGraph
         return vertexMap.toString();
     }
     
-      
+    /**
+     * Finds the lowest total weight from the fromLabel to the toLabel. Utilizes Dijkstra's algorithm.
+     * 
+     * @param fromLabel - label of the from vertex
+     * @param toLabel - label of the to vertex
+     * @returns cost from the fromLabel to the toLabel, -1 if from vertex and to vertex are not connected 
+     * @throws NullPointerException - when either label is null
+     * @throws NoSuchElementException - when either vertex does not exist 
+     */
+    public double weight(String fromLabel,String toLabel) {
+         if (fromLabel == null || toLabel == null) {
+            throw new NullPointerException(); 
+        } else {
+            Vertex fromVertex = vertexMap.get(fromLabel);
+            Vertex toVertex = vertexMap.get(toLabel);
+            if (fromVertex == null || toVertex == null) {
+                throw new NoSuchElementException();
+            } else {
+                MyHashTable<String, MyWeightedGraph.TraversalNode> traversedTable = runDijkstra(fromLabel);
+                TraversalNode toNode = traversedTable.get(toLabel);
+                if (toNode != null) {
+                    return toNode.getWeight();
+                } else {
+                    return -1; 
+                }  
+            } 
+        }
+    }
+    
+    /**
+     * Finds a lowest-weight path from the fromLabel to the toLabel. Utilizes Dijkstra's algorithm.
+     * 
+     * @param fromLabel - label of the from vertex
+     * @param toLabel - label of the to vertex
+     * @returns list of vertex labels for path from fromLabel to toLabel, null if from vertex and to vertex are not connected
+     * @throws NullPointerException - when either label is null
+     * @throws NoSuchElementException - when either vertex does not exist
+     */
+    public ArrayList <String > path(String fromLabel, String toLabel) {
+        if (fromLabel == null || toLabel == null) {
+            throw new NullPointerException(); 
+        } else {
+            Vertex fromVertex = vertexMap.get(fromLabel);
+            Vertex toVertex = vertexMap.get(toLabel);
+            if (fromVertex == null || toVertex == null) {
+                throw new NoSuchElementException();
+            } else {
+                MyHashTable<String, MyWeightedGraph.TraversalNode> traversedTable = runDijkstra(fromLabel);
+                TraversalNode curNode = traversedTable.get(toLabel);
+                if (curNode == null) {
+                    return null; 
+                } else {
+                    ArrayList<String> path = new ArrayList<String>(); 
+                    while (curNode.getLabel() != fromLabel) {
+                        path.add(0, curNode.getLabel());
+                        curNode = traversedTable.get(curNode.getPreviousLabel()); 
+                    } 
+                    path.add(0, fromLabel);
+                    return path;
+                }
+            } 
+        }
+    }
     private class Vertex {
         private String label;
         private ArrayList<Edge> adjEdges;

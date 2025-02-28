@@ -554,5 +554,9 @@ public class Test
         
         System.out.println("Dykstra's Test");
         System.out.println(test.runDijkstra("Atlanta"));
+        System.out.println("Methods using dykstra's test");
+        
+        System.out.println(test.weight("Atlanta", "El Paso"));
+        System.out.println(test.path("Atlanta", "El Paso"));
     }
 }
