@@ -69,7 +69,7 @@ public class MyWeightedGraph
      * Runs Dijkstra's algorithm. Precondition: Vertex for fromLabel exists in graph
      * 
      * @param fromLabel - label from vertex
-     * @returns table of visited TraversalNodes
+     * @return table of visited TraversalNodes
      */
     public MyHashTable<String, MyWeightedGraph.TraversalNode> runDijkstra(String fromLabel) {
         MyHashTable<String, MyWeightedGraph.TraversalNode> visitedList = new MyHashTable<String, MyWeightedGraph.TraversalNode>();
@@ -93,7 +93,7 @@ public class MyWeightedGraph
      * Returns hash table of vertices as a string for testing purposes.
      * 
      * @overrides toString in class Object
-     * @returns vertices table as a string
+     * @return vertices table as a string
      */
     public String toString() {
         return vertexMap.toString();
@@ -104,7 +104,7 @@ public class MyWeightedGraph
      * 
      * @param fromLabel - label of the from vertex
      * @param toLabel - label of the to vertex
-     * @returns cost from the fromLabel to the toLabel, -1 if from vertex and to vertex are not connected 
+     * @return cost from the fromLabel to the toLabel, -1 if from vertex and to vertex are not connected 
      * @throws NullPointerException - when either label is null
      * @throws NoSuchElementException - when either vertex does not exist 
      */
@@ -133,7 +133,7 @@ public class MyWeightedGraph
      * 
      * @param fromLabel - label of the from vertex
      * @param toLabel - label of the to vertex
-     * @returns list of vertex labels for path from fromLabel to toLabel, null if from vertex and to vertex are not connected
+     * @return list of vertex labels for path from fromLabel to toLabel, null if from vertex and to vertex are not connected
      * @throws NullPointerException - when either label is null
      * @throws NoSuchElementException - when either vertex does not exist
      */
@@ -152,7 +152,7 @@ public class MyWeightedGraph
                     return null; 
                 } else {
                     ArrayList<String> path = new ArrayList<String>(); 
-                    while (curNode.getLabel() != fromLabel) {
+                    while (curNode != null && !curNode.getLabel().equals(fromLabel)) {
                         path.add(0, curNode.getLabel());
                         curNode = traversedTable.get(curNode.getPreviousLabel()); 
                     } 
