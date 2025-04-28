@@ -7,53 +7,42 @@ public class SudokuSolver {
     public SudokuSolver() {
         generateBoard();
         createGraph();
+        fillBoard(0,0);
     }
 
     // Generate a full valid board using backtracking
     private boolean fillBoard(int row, int col) {
-        if (row == 9) return true;
-        if (col == 9) return fillBoard(row + 1, 0);
+        if (row == 9) {
+            return true;
+        }
+        
+        if (col == 9) {
+            return fillBoard(row + 1, 0);
+        }
 
         List<Integer> nums = new ArrayList<>();
-        for (int i = 1; i <= 9; i++) { 
+        for (int i = 1; i <= 9; i++) {
             nums.add(i);
         }
         Collections.shuffle(nums);
 
-        for (int num : nums) {
-            if (isValidPlacement(row, col, String.valueOf(num))) {
-                board[row][col] = String.valueOf(num);
-                if (fillBoard(row, col + 1)) return true;
-                board[row][col] = "0"; // Backtrack
-            }
-        }
-        return false;
+          for (int num : nums) {  
+            System.out.println("Trying number " + String.valueOf(num) + " at position (" + row + ", " + col + ")");  
+            board[row][col] = String.valueOf(num); // Place the number  
+            if (validateBoard() && fillBoard(row, col + 1)) {  
+                return true; // Proceed if valid  
+            }  
+            board[row][col] = "0"; //Otherwise, backtrack 
+        }  
+        return false;  
     }
 
     private void generateBoard() {
         for (int i = 0; i < 9; i++) {
             Arrays.fill(board[i], "0");
         }
-        fillBoard(0, 0);
     }
 
-    private boolean isValidPlacement(int row, int col, String num) {
-        // Check row and column
-        for (int i = 0; i < 9; i++) {
-            if (!board[row][i].equals("0") && board[row][i].equals(num)) return false;
-            if (!board[i][col].equals("0") && board[i][col].equals(num)) return false;
-        }
-
-        // Check 3x3 box
-        int boxRow = (row / 3) * 3;
-        int boxCol = (col / 3) * 3;
-        for (int r = boxRow; r < boxRow + 3; r++) {
-            for (int c = boxCol; c < boxCol + 3; c++) {
-                if (!board[r][c].equals("0") && board[r][c].equals(num)) return false;
-            }
-        }
-        return true;
-    }
 
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
@@ -95,16 +84,16 @@ public class SudokuSolver {
             }
         }
     }
-
-    public boolean validateBoard() {
+    
+   public boolean validateBoard() {
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
                 String label = "R" + row + "C" + col;
                 String val = board[row][col];
 
                 if (val.equals("0")) continue;
-                
-                if (graph.noAdjDups(label)) { 
+               
+                if (graph.noAdjDups(label)) {
                     return false; //there is a duplicate
                 }
             }
@@ -118,5 +107,4 @@ public class SudokuSolver {
         solver.printBoard();
     }
 }
-
 
