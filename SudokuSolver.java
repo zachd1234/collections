@@ -26,14 +26,19 @@ public class SudokuSolver {
         }
         Collections.shuffle(nums);
 
-          for (int num : nums) {  
-            System.out.println("Trying number " + String.valueOf(num) + " at position (" + row + ", " + col + ")");  
-            board[row][col] = String.valueOf(num); // Place the number  
-            if (validateBoard() && fillBoard(row, col + 1)) {  
-                return true; // Proceed if valid  
-            }  
-            board[row][col] = "0"; //Otherwise, backtrack 
-        }  
+        for (int num : nums) {
+            System.out.println("Trying number " + num + " at position (" + row + ", " + col + ")");
+            board[row][col] = String.valueOf(num);
+            graph.setVertex("R" + row + "C" + col, String.valueOf(num)); // <-- fix
+            
+            if (validateBoard() && fillBoard(row, col + 1)) {
+                return true;
+            }
+        
+            board[row][col] = "0";
+            graph.setVertex("R" + row + "C" + col, "0");
+        }
+    
         return false;  
     }
 
@@ -71,13 +76,14 @@ public class SudokuSolver {
                 String label1 = "R" + row1 + "C" + col1;
                 for (int row2 = 0; row2 < 9; row2++) {
                     for (int col2 = 0; col2 < 9; col2++) {
-                        if (row1 == row2 && col1 == col2) continue;
-                        boolean sameRow = row1 == row2;
-                        boolean sameCol = col1 == col2;
-                        boolean sameBox = (row1 / 3 == row2 / 3) && (col1 / 3 == col2 / 3);
-                        if (sameRow || sameCol || sameBox) {
-                            String label2 = "R" + row2 + "C" + col2;
-                            graph.addEdge(label1, label2);
+                        if (!(row1 == row2 && col1 == col2)) { //ensure its not the same cell
+                            boolean sameRow = row1 == row2;
+                            boolean sameCol = col1 == col2;
+                            boolean sameBox = (row1 / 3 == row2 / 3) && (col1 / 3 == col2 / 3);
+                            if (sameRow || sameCol || sameBox) {
+                                String label2 = "R" + row2 + "C" + col2;
+                                graph.addEdge(label1, label2);
+                            }
                         }
                     }
                 }
